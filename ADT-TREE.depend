@@ -1,0 +1,48 @@
+# depslib dependency file v1.0
+1557212671 source:d:\adt tree\adt-tree\nbtree_d.cpp
+	<limits.h>
+	<malloc.h>
+	"nbtree_d.h"
+
+1557203174 d:\adt tree\adt-tree\nbtree_d.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1557212029 source:d:\adt tree\adt-tree\main.cpp
+	"nbtree_d.h"
+
+1557758428 source:d:\adt tree\versi andi\main.cpp
+	"nbtree_d.h"
+
+1557583029 d:\adt tree\versi andi\nbtree_d.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"boolean.h"
+
+1557759193 source:d:\adt tree\versi andi\nbtree_d.cpp
+	<limits.h>
+	<malloc.h>
+	"nbtree_d.h"
+	"boolean.h"
+
+1540955430 d:\adt tree\versi andi\boolean.h
+
+1557812980 source:d:\adt tree silsilah\nbtree_d.cpp
+	<limits.h>
+	<malloc.h>
+	"nbtree_d.h"
+	"boolean.h"
+
+1557814437 d:\adt tree silsilah\nbtree_d.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"boolean.h"
+
+1540955430 d:\adt tree silsilah\boolean.h
+
+1557812852 source:d:\adt tree silsilah\main.cpp
+	"nbtree_d.h"
+
