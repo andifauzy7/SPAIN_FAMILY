@@ -70,6 +70,24 @@ nbAddr nbSearch(nbAddr root, nbType src){
 	}
 }
 
+nbAddr nbSearchbefore(nbAddr root, nbAddr alamat){
+	nbAddr nSrc;
+	if (root!=NULL){
+		if (root->nb==alamat)
+			return root;
+		else{
+			nSrc=nbSearchbefore(root->fs,alamat);
+			if (nSrc==NULL)
+				return nbSearchbefore(root->nb,alamat);
+			else
+				return nSrc;
+		}
+	}
+	else{
+		return NULL;
+	}
+}
+
 /* Mencari kedalaman */
 /*
 int nbDepth(nbAddr root){
