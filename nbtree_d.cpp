@@ -52,4 +52,20 @@ void Inorder(nbAddr root){
 /* Modul Pembantu */
 
 /* Search dengan mengembalikan address Node tertentu */
-
+nbAddr nbSearch(nbAddr root, nbType src){
+	nbAddr nSrc;
+	if (root!=NULL){
+		if (strcmp(root->nama,src)==0)
+			return root;
+		else{
+			nSrc=nbSearch(root->fs,src);
+			if (nSrc==NULL)
+				return nbSearch(root->nb,src);
+			else
+				return nSrc;
+		}
+	}
+	else{
+		return NULL;
+	}
+}

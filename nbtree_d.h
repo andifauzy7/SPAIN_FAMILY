@@ -45,7 +45,7 @@ void Inorder(nbAddr root);
 /* Modul Pembantu */
 
 /* Search dengan mengembalikan address Node tertentu */
-
+nbAddr nbSearch(nbAddr root, nbType src);
 
 
 
