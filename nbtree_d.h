@@ -34,6 +34,9 @@ void nbCreate(nbTree *x);
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status) */
 
 /* Tampil Tree Preorder, Inorder, Postorder */
+void Postorder(nbAddr root);
+void Preorder(nbAddr root);
+void Inorder(nbAddr root);
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya meninggal */
 
