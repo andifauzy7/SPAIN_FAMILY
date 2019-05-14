@@ -39,6 +39,7 @@ void Preorder(nbAddr root);
 void Inorder(nbAddr root);
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya meninggal */
+void delete_node(nbTree *pTree);
 
 /* Modul untuk Update Nilai dari Node */
 
