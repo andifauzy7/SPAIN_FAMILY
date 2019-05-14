@@ -69,3 +69,43 @@ nbAddr nbSearch(nbAddr root, nbType src){
 		return NULL;
 	}
 }
+
+/* Mencari kedalaman */
+/*
+int nbDepth(nbAddr root){
+    int jml=0, jml_temp=0;
+    nbAddr gerak, ujung, head;
+    boolean test;
+
+    gerak=root;
+    if(gerak==NULL){
+        return 0;
+    }
+    gerak=gerak->fs;
+    jml=1;
+    ujung=cekujung(gerak);
+    test=false;
+
+    while(test!=true){
+        if(gerak->fs!=NULL){
+            push_stack(&head,gerak);
+            gerak=gerak->fs;
+            jml++;
+            if(jml>jml_temp){
+                jml_temp=jml;
+            }
+        }
+        if(isi_stack(head)!=true && gerak->nb==NULL && gerak->fs==NULL){
+            gerak=pop_stack(head);
+            jml--;
+            if(gerak==ujung){
+                test=true;
+            }
+        }
+        if(test==false && gerak->nb!=NULL){
+            gerak=gerak->nb;
+        }
+    }
+
+    return jml_temp;
+} */

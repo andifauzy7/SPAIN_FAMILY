@@ -47,7 +47,8 @@ void Inorder(nbAddr root);
 /* Search dengan mengembalikan address Node tertentu */
 nbAddr nbSearch(nbAddr root, nbType src);
 
-
+/* Mencari kedalaman */
+int nbDepth(nbAddr root);
 
 
 #endif
