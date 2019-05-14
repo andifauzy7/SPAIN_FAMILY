@@ -14,6 +14,21 @@ void nbCreate(nbTree *x){
 	(*x).root=NULL;
 }
 
+nbAddr nbCNode(nbType X,char Y,int Z,boolean O){
+	nbAddr newNode;
+	newNode=(nbAddr) malloc(sizeof(ElmtTree));
+	if (newNode != NULL){
+		newNode->nama=X;
+		newNode->jeniskelamin=Y;
+		newNode->usia=Z;
+		newNode->status=O;
+		newNode->fs=NULL;
+		newNode->nb=NULL;
+		newNode->parent=NULL;
+	}
+	return newNode;
+}
+
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status) */
 
 

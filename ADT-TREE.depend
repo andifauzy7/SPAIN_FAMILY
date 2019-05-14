@@ -57,3 +57,19 @@
 
 1557815917 c:\users\andi fauzy\documents\spain_family\boolean.h
 
+1557820995 source:c:\users\user\documents\spain_family\main.cpp
+	"nbtree_d.h"
+
+1557820918 c:\users\user\documents\spain_family\nbtree_d.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"boolean.h"
+
+1557819390 c:\users\user\documents\spain_family\boolean.h
+
+1557820885 source:c:\users\user\documents\spain_family\nbtree_d.cpp
+	<malloc.h>
+	"nbtree_d.h"
+	"boolean.h"
+
