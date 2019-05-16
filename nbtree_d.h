@@ -52,5 +52,8 @@ void delete_node(nbTree *pTree);
 nbAddr nbSearch(nbAddr root, nbType src);
 nbAddr nbSearchbefore(nbAddr root, nbAddr alamat);
 
+/* Cetak Tree */
+void nbPrint(nbAddr node, char tab[]);
+
 
 #endif

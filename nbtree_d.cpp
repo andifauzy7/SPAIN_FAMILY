@@ -213,3 +213,15 @@ nbAddr nbSearchbefore(nbAddr root, nbAddr alamat){
 		return NULL;
 	}
 }
+
+/* Cetak Tree */
+void nbPrint(nbAddr node, char tab[]){
+	char tempTab[255];
+	strcpy(tempTab, tab);
+	strcat(tempTab, "-");
+	if (node!=NULL){
+		printf("%s%s\n",tab,node->nama);
+		nbPrint(node->fs,tempTab);
+		nbPrint(node->nb,tab);
+	}
+}
