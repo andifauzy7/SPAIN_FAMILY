@@ -31,9 +31,10 @@ struct nbTree{
 /* Konstruktor Tree */
 void nbCreate(nbTree *x);
 
-nbAddr nbCNode(nbType X,char Y,int Z,boolean O);
+nbAddr nbCNode(nbType X, char Y,int Z,boolean O);
 
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status) */
+void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O);
 
 /* Tampil Tree Preorder, Inorder, Postorder */
 void Postorder(nbAddr root);

@@ -31,6 +31,38 @@ nbAddr nbCNode(nbType X,char Y,int Z,boolean O){
 
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status) */
 
+void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O)
+{
+    nbAddr newNode, temp;
+
+    newNode=nbCNode(X,Y,Z,O);
+    if (newNode !=NULL)
+        {
+        if (parent==NULL)
+        {
+            tRoot->root=newNode;
+            printf("NODE INI DIJADIKAN ROOT");
+        }
+        else{
+            printf("Masukan parent Node : ");
+            scanf("%s", parent);
+            temp=parent;
+            if(temp->fs !=NULL)
+                {
+                temp=temp->fs;
+                while(temp->nb!=NULL)
+                    {
+                    temp=temp->nb;
+                    temp->nb=newNode;
+                    }
+                }
+                else{
+                    temp->fs=newNode;
+                    newNode->parent=parent;
+                    }
+            }
+        }
+}
 
 /* Tampil Tree Preorder, Inorder, Postorder */
 void Postorder(nbAddr root){
