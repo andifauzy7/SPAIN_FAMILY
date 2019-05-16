@@ -51,8 +51,5 @@ void delete_node(nbTree *pTree);
 nbAddr nbSearch(nbAddr root, nbType src);
 nbAddr nbSearchbefore(nbAddr root, nbAddr alamat);
 
-/* Mencari kedalaman */
-int nbDepth(nbAddr root);
-
 
 #endif
