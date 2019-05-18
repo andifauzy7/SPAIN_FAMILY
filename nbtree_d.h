@@ -40,6 +40,7 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O
 void Postorder(nbAddr root);
 void Preorder(nbAddr root);
 void Inorder(nbAddr root);
+void LevelOrder(nbAddr root,int curLevel, int desLevel);
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya meninggal */
 void delete_node(nbTree *pTree);
@@ -47,6 +48,13 @@ void delete_node(nbTree *pTree);
 /* Modul untuk Update Nilai dari Node */
 
 /* Modul Pembantu */
+
+/* Seperangkat Depth */
+int nbDepth(nbAddr root);
+nbAddr cekujung(nbAddr root);
+void push_stack(nbAddr *head, nbAddr gerak);
+nbAddr pop_stack(nbAddr head);
+boolean isi_stack(nbAddr head);
 
 /* Search dengan mengembalikan address Node tertentu */
 nbAddr nbSearch(nbAddr root, nbType src);

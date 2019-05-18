@@ -92,6 +92,16 @@ void Inorder(nbAddr root){
 	}
 }
 
+void LevelOrder(nbAddr root,int curLevel, int desLevel){
+	if(root!=NULL)
+	{
+		if(curLevel==desLevel)
+			printf("%s ",root->nama);
+		LevelOrder(root->fs,curLevel+1,desLevel);
+		LevelOrder(root->nb,curLevel,desLevel);
+	}
+}
+
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya meninggal */
 void delete_node(nbTree *pTree){
 	nbAddr pdel, temp, sonbaru, ujungbrother;
@@ -176,6 +186,81 @@ void delete_node(nbTree *pTree){
 /* Modul untuk Update Nilai dari Node */
 
 /* Modul Pembantu */
+
+/* Seperangkat Depth */
+int nbDepth(nbAddr root){
+    int jml=0, jml_temp=0;
+    nbAddr gerak, ujung, head=NULL;
+    boolean test;
+
+    gerak=root;
+    if(gerak==NULL){
+        return 0;
+    }
+    gerak=gerak->fs;
+    jml=jml_temp=1;
+    ujung=cekujung(gerak);
+    test=false;
+
+    while(test!=true){
+        if(gerak->fs!=NULL){
+            push_stack(&head,gerak);
+            gerak=gerak->fs;
+            jml++;
+            if(jml>jml_temp){
+                jml_temp=jml;
+            }
+        }
+        if(isi_stack(head)!=true && gerak->nb==NULL && gerak->fs==NULL){
+            gerak=pop_stack(head);
+            jml--;
+        }
+        if(test==false && gerak->nb!=NULL){
+            gerak=gerak->nb;
+        }
+        if(gerak==ujung){
+            test=true;
+        }
+    }
+
+    return jml_temp;
+}
+
+nbAddr cekujung(nbAddr root){
+    nbAddr ujung;
+    ujung=root;
+    while(ujung->nb!=NULL){
+        ujung=ujung->nb;
+    }
+    return ujung;
+}
+
+void push_stack(nbAddr *head, nbAddr gerak){
+    nbAddr bantu;
+    if(head==NULL){
+        (*head)->parent=gerak;
+        (*head)->nb=NULL;
+    } else {
+        bantu->parent=gerak;
+        bantu->nb=(*head);
+        (*head)=bantu;
+    }
+}
+
+nbAddr pop_stack(nbAddr head){
+    nbAddr bantu;
+    bantu=head;
+    head=head->nb;
+    return bantu;
+}
+
+boolean isi_stack(nbAddr head){
+    if(head==NULL){
+        return true;
+    } else {
+        return false;
+    }
+}
 
 /* Search dengan mengembalikan address Node tertentu */
 nbAddr nbSearch(nbAddr root, nbType src){

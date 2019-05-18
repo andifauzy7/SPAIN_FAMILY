@@ -46,10 +46,10 @@
 1557812852 source:d:\adt tree silsilah\main.cpp
 	"nbtree_d.h"
 
-1558149144 source:c:\users\andi fauzy\documents\spain_family\main.cpp
+1558152765 source:c:\users\andi fauzy\documents\spain_family\main.cpp
 	"nbtree_d.h"
 
-1558145467 c:\users\andi fauzy\documents\spain_family\nbtree_d.h
+1558152677 c:\users\andi fauzy\documents\spain_family\nbtree_d.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -73,7 +73,7 @@
 	"nbtree_d.h"
 	"boolean.h"
 
-1558149454 source:c:\users\andi fauzy\documents\spain_family\nbtree_d.cpp
+1558152805 source:c:\users\andi fauzy\documents\spain_family\nbtree_d.cpp
 	<malloc.h>
 	"nbtree_d.h"
 	"boolean.h"
