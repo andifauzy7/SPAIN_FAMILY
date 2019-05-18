@@ -35,6 +35,9 @@ struct people{
 	boolean status;
 };
 
+/* Tampilan Menu */
+int menu();
+
 /* Konstruktor Tree */
 void nbCreate(nbTree *x);
 

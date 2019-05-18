@@ -4,6 +4,8 @@ int main(){
     nbTree MyList;
 	nbAddr awal, anak1,anak2,anak3;
 
+	menu();
+	system("cls");
 	nbCreate(&MyList);
 	awal=(nbAddr)malloc(sizeof(ElmtTree));
 	MyList.root=awal;
@@ -99,5 +101,6 @@ int main(){
         //nbPrint(MyList.root,">");
         printf("\n");
         open_filetree();
+
 	return 0;
 }

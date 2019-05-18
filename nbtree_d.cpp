@@ -9,6 +9,33 @@ Kelas       : 1A / D3-T.Informatika (JTK'18)
 #include "nbtree_d.h"
 #include "boolean.h"
 
+/* Tampilan Menu */
+int menu(){
+    int pil;
+    lagi:
+        printf("\n\tImplementasi ADT Non-Binary Tree.\n");
+        printf("\tProgram Silsilah Keluarga. (Kerajaan Spanyol)\n");
+        printf("\t> Andi Fauzy D.   (181511007)\n");
+        printf("\t> Fahmi Widianto. (181511012)\n");
+        printf("\n\tMenu Program :\n");
+        printf("\t1. Input Data Baru.\n");
+        printf("\t2. Update Data.\n");
+        printf("\t3. Delete Node.\n");
+        printf("\t4. Tampilkan Silsilah Raja.\n");
+        printf("\t5. Tampilkan Silsilah Keluarga.\n");
+        printf("\t6. Keluar.\n");
+        printf("\n\tPilihan Anda (1-6) : ");
+        scanf(" %d",&pil);
+        if(pil==1 || pil==2 || pil==3 || pil==4 || pil==5 || pil==6){
+            return pil;
+        } else {
+            printf("\tInput Salah, Ulangi.\n\n\t");
+            system("pause");
+            system("cls");
+            goto lagi;
+        }
+}
+
 /* Konstruktor Tree */
 void nbCreate(nbTree *x){
 	(*x).root=NULL;
