@@ -68,14 +68,14 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O
 void Postorder(nbAddr root){
 	if (root!=NULL){
 		Postorder(root->fs);
-		printf("%s ", root->nama);
+		printf(" - %s - ", root->nama);
 		Postorder(root->nb);
 	}
 }
 
 void Preorder(nbAddr root){
 	if (root!=NULL){
-		printf("%s ", root->nama);
+		printf(" - %s - ", root->nama);
 		Preorder(root->fs);
 		Preorder(root->nb);
 	}
@@ -84,10 +84,10 @@ void Preorder(nbAddr root){
 void Inorder(nbAddr root){
 	if (root!=NULL){
 		Inorder(root->fs);
-		if (root->fs==NULL) printf("%s ", root->nama);
+		if (root->fs==NULL) printf(" - %s - ", root->nama);
 		if (root->parent !=NULL)
 			if (root->parent->fs==root)
-				printf("%s ", root->nama);
+				printf(" - %s - ", root->parent->nama);
 		Inorder(root->nb);
 	}
 }

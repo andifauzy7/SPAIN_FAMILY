@@ -77,6 +77,12 @@ int main(){
         printf("Orang Tua : %s\n\n",awal->parent->nama);
 
         nbPrint(MyList.root," ");
+        printf("\n");
+        Postorder(MyList.root);
+        printf("\n");
+        Preorder(MyList.root);
+        printf("\n");
+        Inorder(MyList.root);
 
 	return 0;
 }
