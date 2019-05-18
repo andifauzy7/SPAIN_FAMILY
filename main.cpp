@@ -3,8 +3,8 @@
 int main(){
     nbTree MyList;
 	nbAddr awal, anak1,anak2,anak3;
-	nbCreate(&MyList);
 
+	nbCreate(&MyList);
 	awal=(nbAddr)malloc(sizeof(ElmtTree));
 	MyList.root=awal;
 	awal->nama="Andi Fauzy";
@@ -76,20 +76,25 @@ int main(){
         printf("Status    : %d\n",awal->status);
         printf("Orang Tua : %s\n\n",awal->parent->nama);
 
-        nbPrint(MyList.root," ");
+        nbPrint(MyList.root,">");
         printf("\n");
         Postorder(MyList.root);
         printf("\n");
         Preorder(MyList.root);
         printf("\n");
         Inorder(MyList.root);
-        printf("\n");
+        printf("\n\n");
+
         printf("%s",nbSearch(MyList.root,"Fahmi Widianto")->nama);
         printf("\n");
         printf("%s",nbSearchbefore(MyList.root,nbSearch(MyList.root,"Luthfi Alri"))->nama);
+        printf("\n\n");
+
+        printf("Depth   : %d",nbDepth(MyList.root));
         printf("\n");
-        printf("%d",nbDepth(MyList.root));
-        printf("\n");
-        LevelOrder(MyList.root,0,1);
+        AllLevelOrder(MyList.root, nbDepth(MyList.root));
+
+        delete_node(&MyList);
+        nbPrint(MyList.root,">");
 	return 0;
 }

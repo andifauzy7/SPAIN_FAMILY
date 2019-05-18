@@ -41,11 +41,14 @@ void Postorder(nbAddr root);
 void Preorder(nbAddr root);
 void Inorder(nbAddr root);
 void LevelOrder(nbAddr root,int curLevel, int desLevel);
+void AllLevelOrder(nbAddr root, int maxlevel);
 
-/* Delete Node, diasumsikan pada silsilah keluarga statusnya meninggal */
+/* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
 void delete_node(nbTree *pTree);
 
 /* Modul untuk Update Nilai dari Node */
+
+/* Seperangkat Modul Save File */
 
 /* Modul Pembantu */
 

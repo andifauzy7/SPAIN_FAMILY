@@ -30,7 +30,6 @@ nbAddr nbCNode(nbType X,char Y,int Z,boolean O){
 }
 
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status) */
-
 void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O)
 {
     nbAddr newNode, temp;
@@ -68,14 +67,14 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O
 void Postorder(nbAddr root){
 	if (root!=NULL){
 		Postorder(root->fs);
-		printf(" - %s - ", root->nama);
+		printf(" %s.", root->nama);
 		Postorder(root->nb);
 	}
 }
 
 void Preorder(nbAddr root){
 	if (root!=NULL){
-		printf(" - %s - ", root->nama);
+		printf(" %s.", root->nama);
 		Preorder(root->fs);
 		Preorder(root->nb);
 	}
@@ -84,10 +83,10 @@ void Preorder(nbAddr root){
 void Inorder(nbAddr root){
 	if (root!=NULL){
 		Inorder(root->fs);
-		if (root->fs==NULL) printf(" - %s - ", root->nama);
+		if (root->fs==NULL) printf(" %s.", root->nama);
 		if (root->parent !=NULL)
 			if (root->parent->fs==root)
-				printf(" - %s - ", root->parent->nama);
+				printf(" %s.", root->parent->nama);
 		Inorder(root->nb);
 	}
 }
@@ -96,18 +95,30 @@ void LevelOrder(nbAddr root,int curLevel, int desLevel){
 	if(root!=NULL)
 	{
 		if(curLevel==desLevel)
-			printf("%s ",root->nama);
+			printf("%s. ",root->nama);
 		LevelOrder(root->fs,curLevel+1,desLevel);
 		LevelOrder(root->nb,curLevel,desLevel);
 	}
 }
 
-/* Delete Node, diasumsikan pada silsilah keluarga statusnya meninggal */
+void AllLevelOrder(nbAddr root, int maxlevel){
+    int i=0;
+    while(i<=maxlevel){
+        printf("Level %d : ",i);
+        LevelOrder(root,0,i);
+        printf("\n");
+        i++;
+    }
+}
+
+/* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
 void delete_node(nbTree *pTree){
 	nbAddr pdel, temp, sonbaru, ujungbrother;
 	nbType value;
+	char nama[30];
     printf("\nNode yg di delete : ");
-	scanf("%s", &value);
+	gets(nama);
+	value=nama;
 
 	if(pTree->root != NULL){
 	    pdel=nbSearch(pTree->root,value);
@@ -184,6 +195,8 @@ void delete_node(nbTree *pTree){
 }
 
 /* Modul untuk Update Nilai dari Node */
+
+/* Seperangkat Modul Save File */
 
 /* Modul Pembantu */
 
@@ -310,3 +323,4 @@ void nbPrint(nbAddr node, char tab[]){
 		nbPrint(node->nb,tab);
 	}
 }
+
