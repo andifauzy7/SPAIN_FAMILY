@@ -67,13 +67,13 @@ int main(){
     }
         printf("Nama      : %s\n",awal->nama);
         printf("Kelamin   : %c\n",awal->jeniskelamin);
-        printf("Usia      : ");
+        printf("Usia      : %d\n",awal->usia);
+        printf("Status    : ");
         if(awal->status==1){
             printf("Hidup\n");
         } else {
             printf("Meninggal\n");
         }
-        printf("Status    : %d\n",awal->status);
         printf("Orang Tua : %s\n\n",awal->parent->nama);
 
         nbPrint(MyList.root,">");
@@ -94,7 +94,10 @@ int main(){
         printf("\n");
         AllLevelOrder(MyList.root, nbDepth(MyList.root));
 
-        delete_node(&MyList);
-        nbPrint(MyList.root,">");
+        save_tree(MyList.root);
+        //delete_node(&MyList);
+        //nbPrint(MyList.root,">");
+        printf("\n");
+        open_filetree();
 	return 0;
 }

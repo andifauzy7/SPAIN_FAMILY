@@ -196,7 +196,88 @@ void delete_node(nbTree *pTree){
 
 /* Modul untuk Update Nilai dari Node */
 
-/* Seperangkat Modul Save File */
+/* Seperangkat Modul File */
+void save_tree(nbAddr root){
+    FILE *f_tree;
+    people orang;
+    nbAddr pCur;
+	boolean arah=0;
+    if((f_tree=fopen("FILE_TREE.txt", "wt"))==NULL){
+        printf("File Mengalami Error\n");
+        exit(1);
+    }
+
+    pCur=(nbAddr)malloc(sizeof(ElmtTree));
+	pCur=root;
+    orang=move_structure(orang,pCur);
+    fwrite(&orang, sizeof(people), 1, f_tree);
+	do{
+		if(pCur->fs!=NULL && arah==0){
+			pCur=pCur->fs;
+			orang=move_structure(orang,pCur);
+            fwrite(&orang, sizeof(people), 1, f_tree);
+		}else{
+			arah=0;
+			if (pCur->nb!= NULL){
+				pCur=pCur->nb;
+				orang=move_structure(orang,pCur);
+                fwrite(&orang, sizeof(people), 1, f_tree);
+			}else{
+				pCur=pCur->parent;
+				arah=1;
+			}
+		}
+	}while(pCur!=NULL);
+
+    fclose(f_tree);
+}
+
+void open_filetree(){
+    people orang;
+    nbAddr pCur;
+    FILE *f_tree;
+    pCur=(nbAddr)malloc(sizeof(ElmtTree));
+    if((f_tree=fopen("FILE_TREE.txt","rt"))==NULL){
+        printf("File Mengalami Error\n");
+        exit(1);
+    }
+
+    while(fread(&orang,sizeof(people),1,f_tree) == 1){
+        fflush(stdin);
+        printf("Nama : %s\n",orang.nama);
+        printf("Usia : %d\n",orang.usia);
+        printf("JK   : %c\n",orang.jk);
+        printf("Stat : %d\n",orang.status);
+        printf("FS   : %s\n",orang.fs);
+        printf("NB   : %s\n",orang.nb);
+        printf("PAR  : %s\n\n",orang.pr);
+    }
+    fclose(f_tree);
+}
+
+people move_structure(people data, nbAddr pCur){
+    data.jk=pCur->jeniskelamin;
+    data.nama=pCur->nama;
+    data.status=pCur->status;
+    data.usia=pCur->usia;
+
+    if(pCur->fs!=NULL){
+        data.fs=pCur->fs->nama;
+    } else {
+        data.fs=NULL;
+    }
+    if(pCur->nb!=NULL){
+        data.nb=pCur->nb->nama;
+    } else {
+        data.nb=NULL;
+    }
+    if(pCur->parent!=NULL){
+        data.pr=pCur->parent->nama;
+    } else {
+        data.pr=NULL;
+    }
+    return data;
+}
 
 /* Modul Pembantu */
 

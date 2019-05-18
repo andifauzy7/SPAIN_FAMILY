@@ -28,6 +28,13 @@ struct nbTree{
 	nbAddr root;
 };
 
+struct people{
+	nbType nama, fs, nb, pr;
+	int usia;
+	char jk;
+	boolean status;
+};
+
 /* Konstruktor Tree */
 void nbCreate(nbTree *x);
 
@@ -48,7 +55,10 @@ void delete_node(nbTree *pTree);
 
 /* Modul untuk Update Nilai dari Node */
 
-/* Seperangkat Modul Save File */
+/* Seperangkat Modul File */
+void save_tree(nbAddr root);
+void open_filetree();
+people move_structure(people data, nbAddr pCur);
 
 /* Modul Pembantu */
 
