@@ -52,6 +52,7 @@ void Preorder(nbAddr root);
 void Inorder(nbAddr root);
 void LevelOrder(nbAddr root,int curLevel, int desLevel);
 void AllLevelOrder(nbAddr root, int maxlevel);
+void view_traversal(nbAddr root);
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
 void delete_node(nbTree *pTree);

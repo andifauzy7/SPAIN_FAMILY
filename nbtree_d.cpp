@@ -59,6 +59,8 @@ nbAddr nbCNode(nbType X,char Y,int Z,boolean O){
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status) */
 void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O)
 {
+    //nbType parent;
+    char nama[20];
     nbAddr newNode, temp;
 
     newNode=nbCNode(X,Y,Z,O);
@@ -67,11 +69,13 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O
         if (parent==NULL)
         {
             tRoot->root=newNode;
-            printf("NODE INI DIJADIKAN ROOT");
+            //printf("\n\tNode Ini Dijadikan Root.");
         }
         else{
-            printf("Masukan parent Node : ");
-            scanf("%s", parent);
+            //printf("\n\tMasukan parent Node : ");
+            //gets(nama);
+            //parent=nama;
+            //temp=nbSearch(tRoot->root,parent);
             temp=parent;
             if(temp->fs !=NULL)
                 {
@@ -79,8 +83,8 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O
                 while(temp->nb!=NULL)
                     {
                     temp=temp->nb;
-                    temp->nb=newNode;
                     }
+                    temp->nb=newNode;
                 }
                 else{
                     temp->fs=newNode;
@@ -131,11 +135,24 @@ void LevelOrder(nbAddr root,int curLevel, int desLevel){
 void AllLevelOrder(nbAddr root, int maxlevel){
     int i=0;
     while(i<=maxlevel){
-        printf("Level %d : ",i);
+        printf("\tLevel %d   : ",i);
         LevelOrder(root,0,i);
         printf("\n");
         i++;
     }
+}
+
+void view_traversal(nbAddr root){
+    printf("\n\tPostorder :");
+    Postorder(root);
+    printf("\n\tPreorder  :");
+    Preorder(root);
+    printf("\n\tInorder   :");
+    Inorder(root);
+    printf("\n");
+    //AllLevelOrder(root,nbDepth(root));
+    printf("\n\tHierarki  :\n");
+    nbPrint(root,"");
 }
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
@@ -426,7 +443,7 @@ void nbPrint(nbAddr node, char tab[]){
 	strcpy(tempTab, tab);
 	strcat(tempTab, "-");
 	if (node!=NULL){
-		printf("%s%s\n",tab,node->nama);
+		printf("\t%s%s\n",tab,node->nama);
 		nbPrint(node->fs,tempTab);
 		nbPrint(node->nb,tab);
 	}
