@@ -10,20 +10,24 @@ int main(){
     for(;;){
         switch(menu()){
         case 1 :
-            // Input Data Baru
+            // Input Data Baru.
+            inputmember(&MyList);
+            printf("\n\tInput Berhasil!\n\t");
+            system("pause");
             break;
         case 2 :
-            // Update Data
+            // Update Data.
             break;
         case 3 :
-            // Delete Node
+            // Delete Node (Delete pada Silsilah Tahta, Status diubah menjadi Meninggal)
+
             break;
         case 4 :
+            // Silsilah Raja
             printf("\n");
             nbPrint(MyList2.root,"");
             printf("\n\t");
             system("pause");
-            // Silsilah Raja
             break;
         case 5 :
             // Silsilah Keluarga

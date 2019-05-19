@@ -89,6 +89,34 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O
         }
 }
 
+void inputmember(nbTree *root){
+    nbTree memberlist;
+    nbType nama, parent, live;
+    char j_kel;
+    int usia;
+    boolean status, king;
+    memberlist=(*root);
+    printf("\n\tNama Lengkap          : "); scanf(" %[^\n]",nama);
+    printf("  \tKelamin (L/W)         : "); scanf(" %c",&j_kel);
+    printf("  \tUsia                  : "); scanf(" %d",&usia);
+    printf("  \tStatus (Hidup / Mati) : "); scanf(" %s",live);
+    if(strcmp("hidup",live)==0 || strcmp("Hidup",live)==0){
+        status=1;
+    } else {
+        status=0;
+    }
+    king=0;
+    printf("\n"); nbPrint(memberlist.root,"");
+    inputparent:
+    printf("\n\tOrang Tua             : "); scanf(" %[^\n]",parent); fflush(stdin);
+    if(nbSearch(memberlist.root, parent)!=NULL){
+        Insertnode(&(*root),nbSearch(memberlist.root, parent), nama, j_kel, usia, status, king);
+    } else {
+        printf("\tParent Tidak Ditemukan!");
+        goto inputparent;
+    }
+}
+
 /* Tampil Tree Preorder, Inorder, Postorder */
 void Postorder(nbAddr root){
 	if (root!=NULL){
