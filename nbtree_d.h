@@ -20,7 +20,7 @@ typedef struct nbTreeNode{
 	nbType nama;
 	int usia;
 	char jeniskelamin;
-	boolean status;
+	boolean status, king;
 	nbAddr fs, nb, parent;
 }ElmtTree;
 
@@ -32,7 +32,7 @@ struct people{
 	nbType nama, pr;
 	int usia;
 	char jk;
-	boolean status;
+	boolean status, king;
 };
 
 /* Tampilan Menu */
@@ -41,10 +41,10 @@ int menu();
 /* Konstruktor Tree */
 void nbCreate(nbTree *x);
 
-nbAddr nbCNode(nbType X, char Y,int Z,boolean O);
+nbAddr nbCNode(nbType X, char Y,int Z,boolean O, boolean P);
 
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status) */
-void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O);
+void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O, boolean P);
 
 /* Tampil Tree Preorder, Inorder, Postorder */
 void Postorder(nbAddr root);
@@ -76,6 +76,7 @@ boolean isi_stack(nbAddr head);
 /* Search dengan mengembalikan address Node tertentu */
 nbAddr nbSearch(nbAddr root, nbType src);
 nbAddr nbSearchbefore(nbAddr root, nbAddr alamat);
+nbAddr SearchKing(nbAddr root);
 
 /* Cetak Tree */
 void nbPrint(nbAddr node, char tab[]);

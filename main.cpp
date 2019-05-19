@@ -1,10 +1,12 @@
 #include "nbtree_d.h"
 
 int main(){
-    nbTree MyList;
+    nbTree MyList,MyList2;
     nbCreate(&MyList);
+    nbCreate(&MyList2);
+
     MyList=open_filetree();
-    nbPrint(MyList.root,"");
+    MyList2=MyList;
 
     for(;;){
         switch(menu()){
@@ -21,13 +23,16 @@ int main(){
             // Silsilah Raja
             break;
         case 5 :
-            //view_traversal(MyList.root);
-            //system("pause");
             // Silsilah Keluarga
+            printf("\n\tRaja saat ini : %s\n",SearchKing(MyList.root)->nama);
+            printf("\n");
+            nbPrint(MyList.root,"");
+            printf("\n\t");
+            system("pause");
             break;
         case 6 :
             // Keluar
-            //save_tree(MyList.root);
+            save_tree(MyList.root);
             exit(1);
             break;
         }

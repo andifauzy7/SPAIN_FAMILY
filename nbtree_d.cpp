@@ -41,7 +41,7 @@ void nbCreate(nbTree *x){
 	(*x).root=NULL;
 }
 
-nbAddr nbCNode(nbType X,char Y,int Z,boolean O){
+nbAddr nbCNode(nbType X,char Y,int Z,boolean O, boolean P){
 	nbAddr newNode;
 	newNode=(nbAddr) malloc(sizeof(ElmtTree));
 	if (newNode != NULL){
@@ -49,6 +49,7 @@ nbAddr nbCNode(nbType X,char Y,int Z,boolean O){
 		newNode->jeniskelamin=Y;
 		newNode->usia=Z;
 		newNode->status=O;
+		newNode->king=P;
 		newNode->fs=NULL;
 		newNode->nb=NULL;
 		newNode->parent=NULL;
@@ -57,11 +58,11 @@ nbAddr nbCNode(nbType X,char Y,int Z,boolean O){
 }
 
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status) */
-void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O)
+void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O, boolean P)
 {
     nbAddr newNode, temp;
 
-    newNode=nbCNode(X,Y,Z,O);
+    newNode=nbCNode(X,Y,Z,O,P);
     if (newNode !=NULL)
         {
         if (parent==NULL)
@@ -285,7 +286,7 @@ nbTree open_filetree(){
 
     while(fread(&orang,sizeof(orang),1,f_tree) == 1){
         fflush(stdin);
-        Insertnode(&Mylist, nbSearch(Mylist.root,orang.pr), orang.nama, orang.jk, orang.usia, orang.status);
+        Insertnode(&Mylist, nbSearch(Mylist.root,orang.pr), orang.nama, orang.jk, orang.usia, orang.status, orang.king);
         fflush(stdin);
     }
     fclose(f_tree);
@@ -295,6 +296,7 @@ nbTree open_filetree(){
 people move_structure(people data, nbAddr pCur){
     data.jk=pCur->jeniskelamin;
     data.status=pCur->status;
+    data.king=pCur->king;
     data.usia=pCur->usia;
 
     strcpy(data.nama,pCur->nama);
@@ -411,6 +413,24 @@ nbAddr nbSearchbefore(nbAddr root, nbAddr alamat){
 			nSrc=nbSearchbefore(root->fs,alamat);
 			if (nSrc==NULL)
 				return nbSearchbefore(root->nb,alamat);
+			else
+				return nSrc;
+		}
+	}
+	else{
+		return NULL;
+	}
+}
+
+nbAddr SearchKing(nbAddr root){
+	nbAddr nSrc;
+	if (root!=NULL){
+		if (root->king==1)
+			return root;
+		else{
+			nSrc=SearchKing(root->fs);
+			if (nSrc==NULL)
+				return SearchKing(root->nb);
 			else
 				return nSrc;
 		}
