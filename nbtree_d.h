@@ -14,7 +14,7 @@ Kelas       : 1A / D3-T.Informatika (JTK'18)
 #include "boolean.h"
 
 typedef struct nbTreeNode *nbAddr;
-typedef char* nbType;
+typedef char nbType[30];
 
 typedef struct nbTreeNode{
 	nbType nama;
@@ -29,7 +29,7 @@ struct nbTree{
 };
 
 struct people{
-	nbType nama, fs, nb, pr;
+	nbType nama, pr;
 	int usia;
 	char jk;
 	boolean status;
@@ -61,7 +61,7 @@ void delete_node(nbTree *pTree);
 
 /* Seperangkat Modul File */
 void save_tree(nbAddr root);
-void open_filetree();
+nbTree open_filetree();
 people move_structure(people data, nbAddr pCur);
 
 /* Modul Pembantu */
