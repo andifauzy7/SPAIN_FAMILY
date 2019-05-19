@@ -4,9 +4,8 @@ int main(){
     nbTree MyList,MyList2;
     nbCreate(&MyList);
     nbCreate(&MyList2);
-
     MyList=open_filetree();
-    MyList2=MyList;
+    MyList2.root=SearchKing(MyList.root);
 
     for(;;){
         switch(menu()){
@@ -20,6 +19,10 @@ int main(){
             // Delete Node
             break;
         case 4 :
+            printf("\n");
+            nbPrint(MyList2.root,"");
+            printf("\n\t");
+            system("pause");
             // Silsilah Raja
             break;
         case 5 :
