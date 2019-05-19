@@ -59,7 +59,6 @@ nbAddr nbCNode(nbType X,char Y,int Z,boolean O){
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status) */
 void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O)
 {
-    //nbType parent;
     char nama[20];
     nbAddr newNode, temp;
 
@@ -72,10 +71,6 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O
             //printf("\n\tNode Ini Dijadikan Root.");
         }
         else{
-            //printf("\n\tMasukan parent Node : ");
-            //gets(nama);
-            //parent=nama;
-            //temp=nbSearch(tRoot->root,parent);
             temp=parent;
             if(temp->fs !=NULL)
                 {
@@ -85,6 +80,7 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O
                     temp=temp->nb;
                     }
                     temp->nb=newNode;
+                    newNode->parent=parent;
                 }
                 else{
                     temp->fs=newNode;
@@ -143,11 +139,11 @@ void AllLevelOrder(nbAddr root, int maxlevel){
 }
 
 void view_traversal(nbAddr root){
-    printf("\n\tPostorder :");
+    printf("\n\tPostorder :\n");
     Postorder(root);
-    printf("\n\tPreorder  :");
+    printf("\n\tPreorder  :\n");
     Preorder(root);
-    printf("\n\tInorder   :");
+    printf("\n\tInorder   :\n");
     Inorder(root);
     printf("\n");
     //AllLevelOrder(root,nbDepth(root));

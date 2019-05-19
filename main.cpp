@@ -3,8 +3,8 @@
 int main(){
     nbTree MyList;
 	nbAddr awal, anak1,anak2,anak3;
-    nbCreate(&MyList);
 
+    nbCreate(&MyList);
     Insertnode(&MyList, nbSearch(MyList.root,0), "Alfonso 12", 'L', 20, 1);
     Insertnode(&MyList, nbSearch(MyList.root,"Alfonso 12"),"Maria Mercedes", 'L', 25, 1);
     Insertnode(&MyList, nbSearch(MyList.root,"Maria Mercedes"),"Infante Alfonso", 'L', 25, 1);
@@ -33,10 +33,35 @@ int main(){
     Insertnode(&MyList, nbSearch(MyList.root,"Duchess Soria"),"Don Alfonso", 'L', 18, 1);
     Insertnode(&MyList, nbSearch(MyList.root,"Duchess Soria"),"Dona Maria", 'L', 18, 1);
 
-    printf("\n");
-    nbPrint(MyList.root,"");
-    //printf("%d",nbDepth(MyList.root));
-    //view_traversal(MyList.root);
+    for(;;){
+        switch(menu()){
+        case 1 :
+            // Input Data Baru
+            break;
+        case 2 :
+            // Update Data
+            break;
+        case 3 :
+            // Delete Node
+            break;
+        case 4 :
+            // Silsilah Raja
+            break;
+        case 5 :
+            view_traversal(MyList.root);
+            system("pause");
+            // Silsilah Keluarga
+            break;
+        case 6 :
+            // Keluar
+            save_tree(MyList.root);
+            open_filetree();
+            system("pause");
+            exit(1);
+            break;
+        }
+        system("cls");
+    }
 
 	return 0;
 }
