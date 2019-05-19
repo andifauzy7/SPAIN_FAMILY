@@ -45,7 +45,7 @@ nbAddr nbCNode(nbType X,char Y,int Z,boolean O){
 	nbAddr newNode;
 	newNode=(nbAddr) malloc(sizeof(ElmtTree));
 	if (newNode != NULL){
-		newNode->nama=X;
+		strcpy(newNode->nama,X);
 		newNode->jeniskelamin=Y;
 		newNode->usia=Z;
 		newNode->status=O;
@@ -59,8 +59,6 @@ nbAddr nbCNode(nbType X,char Y,int Z,boolean O){
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status) */
 void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O)
 {
-    //nbType parent;
-    char nama[20];
     nbAddr newNode, temp;
 
     newNode=nbCNode(X,Y,Z,O);
@@ -69,13 +67,8 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O
         if (parent==NULL)
         {
             tRoot->root=newNode;
-            //printf("\n\tNode Ini Dijadikan Root.");
         }
         else{
-            //printf("\n\tMasukan parent Node : ");
-            //gets(nama);
-            //parent=nama;
-            //temp=nbSearch(tRoot->root,parent);
             temp=parent;
             if(temp->fs !=NULL)
                 {
@@ -85,6 +78,7 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O
                     temp=temp->nb;
                     }
                     temp->nb=newNode;
+                    newNode->parent=parent;
                 }
                 else{
                     temp->fs=newNode;
@@ -143,11 +137,11 @@ void AllLevelOrder(nbAddr root, int maxlevel){
 }
 
 void view_traversal(nbAddr root){
-    printf("\n\tPostorder :");
+    printf("\n\tPostorder :\n");
     Postorder(root);
-    printf("\n\tPreorder  :");
+    printf("\n\tPreorder  :\n");
     Preorder(root);
-    printf("\n\tInorder   :");
+    printf("\n\tInorder   :\n");
     Inorder(root);
     printf("\n");
     //AllLevelOrder(root,nbDepth(root));
@@ -162,7 +156,7 @@ void delete_node(nbTree *pTree){
 	char nama[30];
     printf("\nNode yg di delete : ");
 	gets(nama);
-	value=nama;
+	strcpy(value,nama);
 
 	if(pTree->root != NULL){
 	    pdel=nbSearch(pTree->root,value);
@@ -246,7 +240,7 @@ void save_tree(nbAddr root){
     people orang;
     nbAddr pCur;
 	boolean arah=0;
-    if((f_tree=fopen("FILE_TREE.txt", "wt"))==NULL){
+    if((f_tree=fopen("FILE_TREE.dat", "wb"))==NULL){
         printf("File Mengalami Error\n");
         exit(1);
     }
@@ -254,7 +248,7 @@ void save_tree(nbAddr root){
     pCur=(nbAddr)malloc(sizeof(ElmtTree));
 	pCur=root;
     orang=move_structure(orang,pCur);
-    fwrite(&orang, sizeof(people), 1, f_tree);
+    fwrite(&orang, sizeof(orang), 1, f_tree);
 	do{
 		if(pCur->fs!=NULL && arah==0){
 			pCur=pCur->fs;
@@ -276,49 +270,38 @@ void save_tree(nbAddr root){
     fclose(f_tree);
 }
 
-void open_filetree(){
+nbTree open_filetree(){
     people orang;
     nbAddr pCur;
     FILE *f_tree;
+    nbTree Mylist;
+
+    nbCreate(&Mylist);
     pCur=(nbAddr)malloc(sizeof(ElmtTree));
-    if((f_tree=fopen("FILE_TREE.txt","rt"))==NULL){
+    if((f_tree=fopen("FILE_TREE.dat","rb"))==NULL){
         printf("File Mengalami Error\n");
         exit(1);
     }
 
-    while(fread(&orang,sizeof(people),1,f_tree) == 1){
+    while(fread(&orang,sizeof(orang),1,f_tree) == 1){
         fflush(stdin);
-        printf("Nama : %s\n",orang.nama);
-        printf("Usia : %d\n",orang.usia);
-        printf("JK   : %c\n",orang.jk);
-        printf("Stat : %d\n",orang.status);
-        printf("FS   : %s\n",orang.fs);
-        printf("NB   : %s\n",orang.nb);
-        printf("PAR  : %s\n\n",orang.pr);
+        Insertnode(&Mylist, nbSearch(Mylist.root,orang.pr), orang.nama, orang.jk, orang.usia, orang.status);
+        fflush(stdin);
     }
     fclose(f_tree);
+    return Mylist;
 }
 
 people move_structure(people data, nbAddr pCur){
     data.jk=pCur->jeniskelamin;
-    data.nama=pCur->nama;
     data.status=pCur->status;
     data.usia=pCur->usia;
 
-    if(pCur->fs!=NULL){
-        data.fs=pCur->fs->nama;
-    } else {
-        data.fs=NULL;
-    }
-    if(pCur->nb!=NULL){
-        data.nb=pCur->nb->nama;
-    } else {
-        data.nb=NULL;
-    }
+    strcpy(data.nama,pCur->nama);
     if(pCur->parent!=NULL){
-        data.pr=pCur->parent->nama;
+        strcpy(data.pr,pCur->parent->nama);
     } else {
-        data.pr=NULL;
+        strcpy(data.pr,"0");
     }
     return data;
 }
