@@ -89,6 +89,37 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O
         }
 }
 
+nbTree create_tree2(nbTree *Troot){
+    nbTree pCur;
+    nbCreate(&pCur);
+    nbAddr temp;
+	boolean arah,test=false;
+	arah=0;
+
+	temp=SearchKing((*Troot).root);
+	Insertnode(&pCur, nbSearch(pCur.root,0),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
+	do{
+		if(temp->fs!=NULL && arah==0){
+            temp=temp->fs;
+			Insertnode(&pCur, nbSearch(pCur.root,temp->parent->nama),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
+			}
+		else{
+			arah=0;
+			if (temp->nb!= NULL){
+                temp=temp->nb;
+                Insertnode(&pCur, nbSearch(pCur.root,temp->parent->nama),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
+			}
+			else if(temp->parent!=SearchKing((*Troot).root)){
+				temp=temp->parent;
+				arah=1;
+			} else if(temp->parent==SearchKing((*Troot).root)){
+                test=true;
+			}
+		}
+	}while(test!=true);
+	return pCur;
+}
+
 void inputmember(nbTree *root){
     nbTree memberlist;
     nbType nama, parent, live;

@@ -5,7 +5,7 @@ int main(){
     nbCreate(&MyList);
     nbCreate(&MyList2);
     MyList=open_filetree();
-    MyList2.root=SearchKing(MyList.root);
+    MyList2=create_tree2(&MyList);
 
     for(;;){
         switch(menu()){
@@ -20,8 +20,8 @@ int main(){
             break;
         case 3 :
             // Delete Node (Delete pada Silsilah Tahta, Status diubah menjadi Meninggal)
-            delete_node(&MyList);
-
+            delete_node(&MyList2);
+            system("pause");
             break;
         case 4 :
             // Silsilah Raja
