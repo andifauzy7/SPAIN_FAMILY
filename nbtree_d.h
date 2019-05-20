@@ -52,8 +52,6 @@ nbTree second_tree(nbTree *Troot);
 void Postorder(nbAddr root);
 void Preorder(nbAddr root);
 void Inorder(nbAddr root);
-void LevelOrder(nbAddr root,int curLevel, int desLevel);
-void AllLevelOrder(nbAddr root, int maxlevel);
 void view_traversal(nbAddr root);
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
@@ -67,13 +65,6 @@ nbTree open_filetree();
 people move_structure(people data, nbAddr pCur);
 
 /* Modul Pembantu */
-
-/* Seperangkat Depth */
-int nbDepth(nbAddr root);
-nbAddr cekujung(nbAddr root);
-void push_stack(nbAddr *head, nbAddr gerak);
-nbAddr pop_stack(nbAddr head);
-boolean isi_stack(nbAddr head);
 
 /* Search dengan mengembalikan address Node tertentu */
 nbAddr nbSearch(nbAddr root, nbType src);
