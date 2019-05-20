@@ -89,38 +89,49 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O
         }
 }
 
-nbTree create_tree2(nbTree *Troot){
+nbTree create_tree2(nbTree *Troot, nbAddr temp){
+    // Record untuk Header dari Tree baru.
     nbTree pCur;
     nbCreate(&pCur);
-    nbAddr temp;
-	boolean arah,test=false;
-	arah=0;
+	boolean arah=false,test=false;
 
-	temp=SearchKing((*Troot).root);
-	if(temp->parent!=NULL){
-        temp=temp->parent;
-	}
 	Insertnode(&pCur, nbSearch(pCur.root,0),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
+	//printf("%s, ",temp->nama);
 	do{
 		if(temp->fs!=NULL && arah==0){
             temp=temp->fs;
+            //printf("%s, ",temp->nama);
 			Insertnode(&pCur, nbSearch(pCur.root,temp->parent->nama),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
 			}
 		else{
 			arah=0;
 			if (temp->nb!= NULL){
                 temp=temp->nb;
+                //printf("%s, ",temp->nama);
                 Insertnode(&pCur, nbSearch(pCur.root,temp->parent->nama),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
 			}
-			else if(temp->parent!=SearchKing((*Troot).root)){
+			else if(strcmp(temp->parent->nama,pCur.root->nama)!=0){
 				temp=temp->parent;
 				arah=1;
-			} else if(temp->parent==SearchKing((*Troot).root)){
+			} else if(strcmp(temp->parent->nama,pCur.root->nama)==0){
                 test=true;
 			}
 		}
 	}while(test!=true);
 	return pCur;
+}
+
+nbTree second_tree(nbTree *Troot){
+    nbTree Head, temp;
+    nbCreate(&Head);
+    nbCreate(&temp);
+
+    nbAddr alamat=SearchKing((*Troot).root);
+    // Menjadikan Raja sebagai Root.
+    Head=create_tree2(&(*Troot),alamat);
+
+    return Head;
+
 }
 
 void inputmember(nbTree *root){

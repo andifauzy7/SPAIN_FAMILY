@@ -6,7 +6,8 @@ int main(){
     nbCreate(&MyList);
     nbCreate(&MyList2);
     MyList=open_filetree();
-    MyList2=create_tree2(&MyList);
+    MyList2=second_tree(&MyList);
+    nbPrint(MyList2.root,"");
 
     for(;;){
         switch(menu()){
