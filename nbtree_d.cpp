@@ -122,14 +122,71 @@ nbTree create_tree2(nbTree *Troot, nbAddr temp){
 }
 
 nbTree second_tree(nbTree *Troot){
-    nbTree Head, temp;
+    nbTree Head, Head_two;
     nbCreate(&Head);
-    nbCreate(&temp);
+    boolean kiri=false, kanan=false;
+    nbAddr alamat, cekhorizontal, ujunghead;
 
-    nbAddr alamat=SearchKing((*Troot).root);
+    //cekhorizontal=alamat=SearchKing((*Troot).root);
+    cekhorizontal=alamat=nbSearch((*Troot).root,"Infanta Margarita");
+    if(alamat->nb!=NULL){
+        kanan=true;
+    }
+    if(alamat->parent->fs!=alamat){
+        kiri=true;
+    }
+
     // Menjadikan Raja sebagai Root.
     Head=create_tree2(&(*Troot),alamat);
 
+    if(Head.root->fs!=NULL){
+        ujunghead=Head.root->fs;
+        //printf("%s..",ujunghead->nama);
+    while(ujunghead->nb!=NULL){
+        ujunghead=ujunghead->nb;
+        //printf("%s..",ujunghead->nama);
+        }
+    }
+
+    // Jika KING Memiliki adik.
+    if(kiri==true){
+        //printf("%MASUK BRO");
+        cekhorizontal=alamat->parent->fs;
+        while(cekhorizontal->nb!=NULL && strcmp(cekhorizontal->nama,alamat->nama)!=0){
+            nbCreate(&Head_two);
+            Head_two=create_tree2(&(*Troot),cekhorizontal);
+            Head_two.root->parent=Head.root;
+            if(Head.root->fs==NULL){
+                //Jika Head tidak memiliki FS.
+                Head.root->fs=Head_two.root;
+            } else {
+                //Jika Head memiliki Son.
+                ujunghead->nb=Head_two.root;
+                ujunghead=ujunghead->nb;
+            }
+        cekhorizontal=cekhorizontal->nb;
+        }
+    }
+    // Jika KING Memiliki adik.
+    if(kanan==true){
+        cekhorizontal=alamat;
+        while(cekhorizontal->nb!=NULL){
+            cekhorizontal=cekhorizontal->nb;
+            nbCreate(&Head_two);
+            Head_two=create_tree2(&(*Troot),cekhorizontal);
+            Head_two.root->parent=Head.root;
+            if(Head.root->fs==NULL){
+                //Jika Head tidak memiliki FS.
+                Head.root->fs=Head_two.root;
+            } else {
+                //Jika Head memiliki Son.
+                ujunghead->nb=Head_two.root;
+                if(ujunghead->nb!=NULL){
+                    ujunghead=ujunghead->nb;
+                }
+            }
+        }
+    }
     return Head;
 
 }
