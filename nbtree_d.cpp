@@ -181,10 +181,9 @@ void view_traversal(nbAddr root){
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
 void delete_node(nbTree *pTree){
 	nbAddr pdel, temp, sonbaru, ujungbrother;
-	nbType value;
-	char nama[30];
-    printf("\nNode yg di delete : ");
-	gets(nama);
+	nbType value, nama;
+    printf("\n\tNode yg di delete : ");
+	scanf(" %[^\n]",nama);
 	strcpy(value,nama);
 
 	if(pTree->root != NULL){
