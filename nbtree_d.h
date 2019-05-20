@@ -56,7 +56,7 @@ void AllLevelOrder(nbAddr root, int maxlevel);
 void view_traversal(nbAddr root);
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
-void delete_node(nbTree *pTree);
+void delete_node(nbTree *pTree, nbType value);
 
 /* Modul untuk Update Nilai dari Node */
 

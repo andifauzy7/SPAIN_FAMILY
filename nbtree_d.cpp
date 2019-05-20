@@ -97,6 +97,9 @@ nbTree create_tree2(nbTree *Troot){
 	arah=0;
 
 	temp=SearchKing((*Troot).root);
+	if(temp->parent!=NULL){
+        temp=temp->parent;
+	}
 	Insertnode(&pCur, nbSearch(pCur.root,0),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
 	do{
 		if(temp->fs!=NULL && arah==0){
@@ -210,12 +213,8 @@ void view_traversal(nbAddr root){
 }
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
-void delete_node(nbTree *pTree){
+void delete_node(nbTree *pTree, nbType value){
 	nbAddr pdel, temp, sonbaru, ujungbrother;
-	nbType value, nama;
-    printf("\n\tNode yg di delete : ");
-	scanf(" %[^\n]",nama);
-	strcpy(value,nama);
 
 	if(pTree->root != NULL){
 	    pdel=nbSearch(pTree->root,value);

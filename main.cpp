@@ -1,6 +1,7 @@
 #include "nbtree_d.h"
 
 int main(){
+    nbType nama;
     nbTree MyList,MyList2;
     nbCreate(&MyList);
     nbCreate(&MyList2);
@@ -20,7 +21,8 @@ int main(){
             break;
         case 3 :
             // Delete Node (Delete pada Silsilah Tahta, Status diubah menjadi Meninggal)
-            delete_node(&MyList2);
+            printf("\n\tNode yang ingin didelete : "); scanf(" %[^\n]",nama);
+            delete_node(&MyList2,nama);
             system("pause");
             break;
         case 4 :
