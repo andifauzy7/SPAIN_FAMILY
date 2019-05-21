@@ -257,11 +257,15 @@ void view_traversal(nbAddr root){
 }
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
-void delete_node(nbTree *pTree, nbType value){
+void delete_node(nbTree *pTree, nbTree *pTree2, nbType value){
 	nbAddr pdel, temp, sonbaru, ujungbrother;
-
 	if(pTree->root != NULL){
 	    pdel=nbSearch(pTree->root,value);
+
+	    //Jika yang dihapus adalah KING. Mencari Raja Baru
+	    if(pdel->king==1){
+            change_king((*pTree).root,(*pTree2).root);
+	    }
 		if(pdel->fs != NULL){
 		    // Jika yang dihapus memiliki son. Menandai First-an dari node tersebut.
             temp=pdel->fs;
@@ -334,7 +338,31 @@ void delete_node(nbTree *pTree, nbType value){
 	}
 }
 
-/* Modul untuk Update Nilai dari Node */
+void change_king(nbAddr treesatu, nbAddr treedua){
+    nbAddr gerak,tertua,tertua_free;
+    tertua=gerak=tertua_free=NULL;
+    gerak=treedua->fs;
+    while(gerak->nb!=NULL){
+        if(gerak->usia>=20 && gerak->jeniskelamin=='L'){
+            tertua=gerak;
+        }
+        if(gerak->usia>=20){
+            tertua_free=gerak;
+        }
+        gerak=gerak->nb;
+    }
+    // Search nama KING baru via Tree 1, Ubah Bagian KING Menjadi 1.
+    if(tertua==NULL){
+        nbSearch(treesatu,tertua_free->nama)->king=1;
+    } else {
+        tertua_free=tertua;
+        nbSearch(treesatu,tertua_free->nama)->king=1;
+    }
+}
+
+void change_king2(nbAddr test){
+    test->fs->king=1;
+}
 
 void updateTree(nbTree *root){
         nbTree memberlist;

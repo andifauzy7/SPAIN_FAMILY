@@ -55,7 +55,9 @@ void Inorder(nbAddr root);
 void view_traversal(nbAddr root);
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
-void delete_node(nbTree *pTree, nbType value);
+void delete_node(nbTree *pTree, nbTree *pTree2, nbType value);
+void change_king(nbAddr treesatu, nbAddr treedua);
+void change_king2(nbAddr test);
 
 /* Modul untuk Update Nilai dari Node */
 void updateTree(nbTree *root);
