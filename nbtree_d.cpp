@@ -433,17 +433,17 @@ void updateTree(nbTree *root, nbTree *root2){
         case 5 :
             printf("\n\t Status Raja (Raja) : ");
             scanf(" %s",namaking);
-           if(strcmp("Raja",namaking)==0 || strcmp("raja",namaking)==0){
+        if(strcmp("Raja",namaking)==0 || strcmp("raja",namaking)==0){
         changeking=1;
         } else {
         changeking=0;
         }
-        if (changeking==1 && SearchKing((*root).root)->king==1){
+        if (changeking==1 && SearchKing((*root).root)->king!=NULL){
             SearchKing((*root).root)->king=0;
         }else if (changeking==0 && SearchKing((*root).root)->king==1){
             change_king((*root).root, (*root2).root);
         }
-        change->status=changeking;
+        change->king=changeking;
 
         break;
 
