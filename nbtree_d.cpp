@@ -89,35 +89,105 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O
         }
 }
 
-nbTree create_tree2(nbTree *Troot){
+nbTree create_tree2(nbTree *Troot, nbAddr temp){
+    // Record untuk Header dari Tree baru.
     nbTree pCur;
     nbCreate(&pCur);
-    nbAddr temp;
-	boolean arah,test=false;
-	arah=0;
+	boolean arah=false,test=false;
 
-	temp=SearchKing((*Troot).root);
 	Insertnode(&pCur, nbSearch(pCur.root,0),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
+	//printf("%s, ",temp->nama);
 	do{
 		if(temp->fs!=NULL && arah==0){
             temp=temp->fs;
+            //printf("%s, ",temp->nama);
 			Insertnode(&pCur, nbSearch(pCur.root,temp->parent->nama),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
 			}
 		else{
 			arah=0;
 			if (temp->nb!= NULL){
                 temp=temp->nb;
+                //printf("%s, ",temp->nama);
                 Insertnode(&pCur, nbSearch(pCur.root,temp->parent->nama),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
 			}
-			else if(temp->parent!=SearchKing((*Troot).root)){
+			else if(strcmp(temp->parent->nama,pCur.root->nama)!=0){
 				temp=temp->parent;
 				arah=1;
-			} else if(temp->parent==SearchKing((*Troot).root)){
+			} else if(strcmp(temp->parent->nama,pCur.root->nama)==0){
                 test=true;
 			}
 		}
 	}while(test!=true);
 	return pCur;
+}
+
+nbTree second_tree(nbTree *Troot){
+    nbTree Head, Head_two;
+    nbCreate(&Head);
+    boolean kiri=false, kanan=false;
+    nbAddr alamat, cekhorizontal, ujunghead;
+
+    cekhorizontal=alamat=SearchKing((*Troot).root);
+    if(alamat->nb!=NULL){
+        kanan=true;
+    }
+    if(alamat->parent->fs!=alamat){
+        kiri=true;
+    }
+
+    // Menjadikan Raja sebagai Root.
+    Head=create_tree2(&(*Troot),alamat);
+
+    if(Head.root->fs!=NULL){
+        ujunghead=Head.root->fs;
+        //printf("%s..",ujunghead->nama);
+    while(ujunghead->nb!=NULL){
+        ujunghead=ujunghead->nb;
+        //printf("%s..",ujunghead->nama);
+        }
+    }
+
+    // Jika KING Memiliki adik.
+    if(kiri==true){
+        //printf("%MASUK BRO");
+        cekhorizontal=alamat->parent->fs;
+        while(cekhorizontal->nb!=NULL && strcmp(cekhorizontal->nama,alamat->nama)!=0){
+            nbCreate(&Head_two);
+            Head_two=create_tree2(&(*Troot),cekhorizontal);
+            Head_two.root->parent=Head.root;
+            if(Head.root->fs==NULL){
+                //Jika Head tidak memiliki FS.
+                Head.root->fs=Head_two.root;
+            } else {
+                //Jika Head memiliki Son.
+                ujunghead->nb=Head_two.root;
+                ujunghead=ujunghead->nb;
+            }
+        cekhorizontal=cekhorizontal->nb;
+        }
+    }
+    // Jika KING Memiliki adik.
+    if(kanan==true){
+        cekhorizontal=alamat;
+        while(cekhorizontal->nb!=NULL){
+            cekhorizontal=cekhorizontal->nb;
+            nbCreate(&Head_two);
+            Head_two=create_tree2(&(*Troot),cekhorizontal);
+            Head_two.root->parent=Head.root;
+            if(Head.root->fs==NULL){
+                //Jika Head tidak memiliki FS.
+                Head.root->fs=Head_two.root;
+            } else {
+                //Jika Head memiliki Son.
+                ujunghead->nb=Head_two.root;
+                if(ujunghead->nb!=NULL){
+                    ujunghead=ujunghead->nb;
+                }
+            }
+        }
+    }
+    return Head;
+
 }
 
 void inputmember(nbTree *root){
@@ -176,26 +246,6 @@ void Inorder(nbAddr root){
 	}
 }
 
-void LevelOrder(nbAddr root,int curLevel, int desLevel){
-	if(root!=NULL)
-	{
-		if(curLevel==desLevel)
-			printf("%s. ",root->nama);
-		LevelOrder(root->fs,curLevel+1,desLevel);
-		LevelOrder(root->nb,curLevel,desLevel);
-	}
-}
-
-void AllLevelOrder(nbAddr root, int maxlevel){
-    int i=0;
-    while(i<=maxlevel){
-        printf("\tLevel %d   : ",i);
-        LevelOrder(root,0,i);
-        printf("\n");
-        i++;
-    }
-}
-
 void view_traversal(nbAddr root){
     printf("\n\tPostorder :\n");
     Postorder(root);
@@ -204,18 +254,11 @@ void view_traversal(nbAddr root){
     printf("\n\tInorder   :\n");
     Inorder(root);
     printf("\n");
-    //AllLevelOrder(root,nbDepth(root));
-    printf("\n\tHierarki  :\n");
-    nbPrint(root,"");
 }
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
-void delete_node(nbTree *pTree){
+void delete_node(nbTree *pTree, nbType value){
 	nbAddr pdel, temp, sonbaru, ujungbrother;
-	nbType value, nama;
-    printf("\n\tNode yg di delete : ");
-	scanf(" %[^\n]",nama);
-	strcpy(value,nama);
 
 	if(pTree->root != NULL){
 	    pdel=nbSearch(pTree->root,value);
@@ -438,81 +481,6 @@ people move_structure(people data, nbAddr pCur){
 }
 
 /* Modul Pembantu */
-
-/* Seperangkat Depth */
-int nbDepth(nbAddr root){
-    int jml=0, jml_temp=0;
-    nbAddr gerak, ujung, head=NULL;
-    boolean test;
-
-    gerak=root;
-    if(gerak==NULL){
-        return 0;
-    }
-    gerak=gerak->fs;
-    jml=jml_temp=1;
-    ujung=cekujung(gerak);
-    test=false;
-
-    while(test!=true){
-        if(gerak->fs!=NULL){
-            push_stack(&head,gerak);
-            gerak=gerak->fs;
-            jml++;
-            if(jml>jml_temp){
-                jml_temp=jml;
-            }
-        }
-        if(isi_stack(head)!=true && gerak->nb==NULL && gerak->fs==NULL){
-            gerak=pop_stack(head);
-            jml--;
-        }
-        if(test==false && gerak->nb!=NULL){
-            gerak=gerak->nb;
-        }
-        if(gerak==ujung){
-            test=true;
-        }
-    }
-
-    return jml_temp;
-}
-
-nbAddr cekujung(nbAddr root){
-    nbAddr ujung;
-    ujung=root;
-    while(ujung->nb!=NULL){
-        ujung=ujung->nb;
-    }
-    return ujung;
-}
-
-void push_stack(nbAddr *head, nbAddr gerak){
-    nbAddr bantu;
-    if(head==NULL){
-        (*head)->parent=gerak;
-        (*head)->nb=NULL;
-    } else {
-        bantu->parent=gerak;
-        bantu->nb=(*head);
-        (*head)=bantu;
-    }
-}
-
-nbAddr pop_stack(nbAddr head){
-    nbAddr bantu;
-    bantu=head;
-    head=head->nb;
-    return bantu;
-}
-
-boolean isi_stack(nbAddr head){
-    if(head==NULL){
-        return true;
-    } else {
-        return false;
-    }
-}
 
 /* Search dengan mengembalikan address Node tertentu */
 nbAddr nbSearch(nbAddr root, nbType src){

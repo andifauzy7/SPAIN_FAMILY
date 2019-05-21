@@ -44,19 +44,18 @@ nbAddr nbCNode(nbType X, char Y,int Z,boolean O, boolean P);
 
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status) */
 void Insertnode(nbTree *tRoot, nbAddr parent, nbType X, char Y, int Z, boolean O, boolean P);
-nbTree create_tree2(nbTree *root);
+nbTree create_tree2(nbTree *Troot, nbAddr temp);
 void inputmember(nbTree *root);
+nbTree second_tree(nbTree *Troot);
 
 /* Tampil Tree Preorder, Inorder, Postorder */
 void Postorder(nbAddr root);
 void Preorder(nbAddr root);
 void Inorder(nbAddr root);
-void LevelOrder(nbAddr root,int curLevel, int desLevel);
-void AllLevelOrder(nbAddr root, int maxlevel);
 void view_traversal(nbAddr root);
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
-void delete_node(nbTree *pTree);
+void delete_node(nbTree *pTree, nbType value);
 
 /* Modul untuk Update Nilai dari Node */
 void updateTree(nbTree *root);
@@ -67,13 +66,6 @@ nbTree open_filetree();
 people move_structure(people data, nbAddr pCur);
 
 /* Modul Pembantu */
-
-/* Seperangkat Depth */
-int nbDepth(nbAddr root);
-nbAddr cekujung(nbAddr root);
-void push_stack(nbAddr *head, nbAddr gerak);
-nbAddr pop_stack(nbAddr head);
-boolean isi_stack(nbAddr head);
 
 /* Search dengan mengembalikan address Node tertentu */
 nbAddr nbSearch(nbAddr root, nbType src);
