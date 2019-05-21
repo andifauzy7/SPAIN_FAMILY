@@ -140,16 +140,13 @@ nbTree second_tree(nbTree *Troot){
 
     if(Head.root->fs!=NULL){
         ujunghead=Head.root->fs;
-        //printf("%s..",ujunghead->nama);
     while(ujunghead->nb!=NULL){
         ujunghead=ujunghead->nb;
-        //printf("%s..",ujunghead->nama);
         }
     }
 
     // Jika KING Memiliki adik.
     if(kiri==true){
-        //printf("%MASUK BRO");
         cekhorizontal=alamat->parent->fs;
         while(cekhorizontal->nb!=NULL && strcmp(cekhorizontal->nama,alamat->nama)!=0){
             nbCreate(&Head_two);
@@ -158,6 +155,7 @@ nbTree second_tree(nbTree *Troot){
             if(Head.root->fs==NULL){
                 //Jika Head tidak memiliki FS.
                 Head.root->fs=Head_two.root;
+                ujunghead=Head.root->fs;
             } else {
                 //Jika Head memiliki Son.
                 ujunghead->nb=Head_two.root;
@@ -177,6 +175,7 @@ nbTree second_tree(nbTree *Troot){
             if(Head.root->fs==NULL){
                 //Jika Head tidak memiliki FS.
                 Head.root->fs=Head_two.root;
+                ujunghead=ujunghead->nb;
             } else {
                 //Jika Head memiliki Son.
                 ujunghead->nb=Head_two.root;
@@ -261,7 +260,6 @@ void delete_node(nbTree *pTree, nbTree *pTree2, nbType value){
 	nbAddr pdel, temp, sonbaru, ujungbrother;
 	if(pTree->root != NULL){
 	    pdel=nbSearch(pTree->root,value);
-
 	    //Jika yang dihapus adalah KING. Mencari Raja Baru
 	    if(pdel->king==1){
             change_king((*pTree).root,(*pTree2).root);

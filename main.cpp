@@ -9,7 +9,6 @@ int main(){
     MyList=open_filetree();         // Membuka File FILE_TREE.DAT dengan kembalian berupa pointer head TREE(1).
     MyList2=second_tree(&MyList);   // Mengolah TREE(1), Melakukan Cek siapa raja & membuat TREE(2) Baru untuk Warisan.
 
-
     for(;;){
         switch(menu()){
         case 1 :
