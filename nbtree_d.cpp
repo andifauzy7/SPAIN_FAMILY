@@ -293,6 +293,58 @@ void delete_node(nbTree *pTree){
 
 /* Modul untuk Update Nilai dari Node */
 
+void updateTree(nbTree root){
+        nbTree memberlist;
+        nbAddr change;
+        nbType changenama, changeparent, changelive;
+        char changej_kel;
+        int changeusia,pil;
+        boolean status, changeking;
+
+        lagi:
+        memberlist=(root);
+        printf("\n\tNama Lengkap          : "); scanf(" %[^\n]",changenama);
+        nbSearch(memberlist.root, changenama);
+        change=nbSearch(memberlist.root, changenama);
+        printf("Apa yang akan diubah ? \n");
+        printf("\n\t1. Nama");
+        printf("  \t2. Jenis Kelamin");
+        printf("  \t3. Usia");
+        printf("  \t4. Status");
+
+        if (pil==1){
+            printf("\nMasukan Nama Baru : ");
+            scanf(" %[^\n]", changenama);
+            change->nama=changenama;
+        }
+        if (pil==2){
+            printf("\nMasukan Jenis Kelamin (L/W) : ");
+            scanf(" %c",&changej_kel);
+
+        }
+        if (pil==3){
+             printf("  \tMasukan Usia : ");
+            scanf(" %d",&changeusia);
+
+        }if (pil==4){
+         printf("  \tStatus (Hidup / Mati) : ");
+         scanf(" %s",changelive);
+           if(strcmp("hidup",changelive)==0 || strcmp("Hidup",changelive)==0){
+        status=1;
+        } else {
+        status=0;
+        }
+
+    }
+    if (pil!=1 && pil!=2 && pil!=3 && pil!=4);
+    {
+        printf("\ninput salah, ulangi");
+        system("pause");
+        system("cls");
+        goto lagi;
+    }
+}
+
 /* Seperangkat Modul File */
 void save_tree(nbAddr root){
     FILE *f_tree;
