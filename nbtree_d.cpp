@@ -293,56 +293,75 @@ void delete_node(nbTree *pTree){
 
 /* Modul untuk Update Nilai dari Node */
 
-void updateTree(nbTree root){
+void updateTree(nbTree *root){
         nbTree memberlist;
         nbAddr change;
-        nbType changenama, changeparent, changelive;
+        nbType srcnama, changenama, changelive;
         char changej_kel;
         int changeusia,pil;
-        boolean status, changeking;
+        boolean changestatus, changeking;
 
         lagi:
-        memberlist=(root);
-        printf("\n\tNama Lengkap          : "); scanf(" %[^\n]",changenama);
-        nbSearch(memberlist.root, changenama);
-        change=nbSearch(memberlist.root, changenama);
-        printf("Apa yang akan diubah ? \n");
+        memberlist=(*root);
+        nbPrint(memberlist.root, "");
+        printf("\n\tNama Lengkap          : "); scanf(" %[^\n]",srcnama);
+        //nbSearch(memberlist.root, srcnama);
+        change=nbSearch(memberlist.root, srcnama);
+        if (strcmp(change->nama, srcnama)==0)
+            {
+        printf("\tApa yang akan diubah ? \n");
         printf("\n\t1. Nama");
-        printf("  \t2. Jenis Kelamin");
-        printf("  \t3. Usia");
-        printf("  \t4. Status");
+        printf("\n\t2. Jenis Kelamin");
+        printf("\n\t3. Usia");
+        printf("\n\t4. Status");
+        printf("\n\tPilihan Anda (1-4) : ");
+        scanf("%d", &pil);
 
-        if (pil==1){
+        switch(pil){
+        case 1 :
             printf("\nMasukan Nama Baru : ");
             scanf(" %[^\n]", changenama);
-            change->nama=changenama;
-        }
-        if (pil==2){
+            strcpy(change->nama,changenama);
+            break;
+
+        case 2 :
             printf("\nMasukan Jenis Kelamin (L/W) : ");
             scanf(" %c",&changej_kel);
+            change->jeniskelamin=changej_kel;
+            break;
 
-        }
-        if (pil==3){
+        case 3 :
              printf("  \tMasukan Usia : ");
             scanf(" %d",&changeusia);
+            change->usia=changeusia;
+            break;
 
-        }if (pil==4){
+        case 4 :
          printf("  \tStatus (Hidup / Mati) : ");
          scanf(" %s",changelive);
            if(strcmp("hidup",changelive)==0 || strcmp("Hidup",changelive)==0){
-        status=1;
+        changestatus=1;
         } else {
-        status=0;
+        changestatus=0;
+        }
+        change->status=changestatus;
+        break;
+
+        default :
+            printf("\tInput Salah, Ulangi.\n\n\t");
+            system("pause");
+            system("cls");
+            goto lagi;
+
         }
 
-    }
-    if (pil!=1 && pil!=2 && pil!=3 && pil!=4);
-    {
-        printf("\ninput salah, ulangi");
-        system("pause");
-        system("cls");
-        goto lagi;
-    }
+    }else
+        {
+            printf("\tNama Tidak Ada, Ulangi.\n\n\t");
+            system("pause");
+            system("cls");
+            goto lagi;
+        }
 }
 
 /* Seperangkat Modul File */

@@ -59,6 +59,7 @@ void view_traversal(nbAddr root);
 void delete_node(nbTree *pTree);
 
 /* Modul untuk Update Nilai dari Node */
+void updateTree(nbTree *root);
 
 /* Seperangkat Modul File */
 void save_tree(nbAddr root);
