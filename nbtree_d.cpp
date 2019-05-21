@@ -336,6 +336,77 @@ void delete_node(nbTree *pTree, nbType value){
 
 /* Modul untuk Update Nilai dari Node */
 
+void updateTree(nbTree *root){
+        nbTree memberlist;
+        nbAddr change;
+        nbType srcnama, changenama, changelive;
+        char changej_kel;
+        int changeusia,pil;
+        boolean changestatus, changeking;
+
+        lagi:
+        memberlist=(*root);
+        nbPrint(memberlist.root, "");
+        printf("\n\tNama Lengkap          : "); scanf(" %[^\n]",srcnama);
+        //nbSearch(memberlist.root, srcnama);
+        change=nbSearch(memberlist.root, srcnama);
+        if (strcmp(change->nama, srcnama)==0)
+            {
+        printf("\tApa yang akan diubah ? \n");
+        printf("\n\t1. Nama");
+        printf("\n\t2. Jenis Kelamin");
+        printf("\n\t3. Usia");
+        printf("\n\t4. Status");
+        printf("\n\tPilihan Anda (1-4) : ");
+        scanf("%d", &pil);
+
+        switch(pil){
+        case 1 :
+            printf("\nMasukan Nama Baru : ");
+            scanf(" %[^\n]", changenama);
+            strcpy(change->nama,changenama);
+            break;
+
+        case 2 :
+            printf("\nMasukan Jenis Kelamin (L/W) : ");
+            scanf(" %c",&changej_kel);
+            change->jeniskelamin=changej_kel;
+            break;
+
+        case 3 :
+             printf("  \tMasukan Usia : ");
+            scanf(" %d",&changeusia);
+            change->usia=changeusia;
+            break;
+
+        case 4 :
+         printf("  \tStatus (Hidup / Mati) : ");
+         scanf(" %s",changelive);
+           if(strcmp("hidup",changelive)==0 || strcmp("Hidup",changelive)==0){
+        changestatus=1;
+        } else {
+        changestatus=0;
+        }
+        change->status=changestatus;
+        break;
+
+        default :
+            printf("\tInput Salah, Ulangi.\n\n\t");
+            system("pause");
+            system("cls");
+            goto lagi;
+
+        }
+
+    }else
+        {
+            printf("\tNama Tidak Ada, Ulangi.\n\n\t");
+            system("pause");
+            system("cls");
+            goto lagi;
+        }
+}
+
 /* Seperangkat Modul File */
 void save_tree(nbAddr root){
     FILE *f_tree;

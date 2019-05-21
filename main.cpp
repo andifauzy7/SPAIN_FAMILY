@@ -19,6 +19,8 @@ int main(){
             break;
         case 2 :
             // Update Data.
+            updateTree(&MyList);
+            system("pause");
             break;
         case 3 :
             // Delete Node (Delete pada Silsilah Tahta, Status diubah menjadi Meninggal)
