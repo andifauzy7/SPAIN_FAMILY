@@ -364,10 +364,10 @@ void change_king2(nbAddr test){
     test->fs->king=1;
 }
 
-void updateTree(nbTree *root){
+void updateTree(nbTree *root, nbTree *root2){
         nbTree memberlist;
         nbAddr change;
-        nbType srcnama, changenama, changelive;
+        nbType srcnama, changenama, changelive, namaking;
         char changej_kel;
         int changeusia,pil;
         boolean changestatus, changeking;
@@ -385,15 +385,21 @@ void updateTree(nbTree *root){
         printf("\n\t2. Jenis Kelamin");
         printf("\n\t3. Usia");
         printf("\n\t4. Status");
-        printf("\n\tPilihan Anda (1-4) : ");
+        printf("\n\t5. King");
+        printf("\n\tPilihan Anda (1-5) : ");
         scanf("%d", &pil);
 
         switch(pil){
+
+        /* Mengubah nama node */
+
         case 1 :
             printf("\n\tMasukan Nama Baru : ");
             scanf(" %[^\n]", changenama);
             strcpy(change->nama,changenama);
             break;
+
+        /* Mengubah jenis kelamin Node */
 
         case 2 :
             printf("\n\tMasukan Jenis Kelamin (L/W) : ");
@@ -401,11 +407,15 @@ void updateTree(nbTree *root){
             change->jeniskelamin=changej_kel;
             break;
 
+        /* Mengubah Usia Node */
+
         case 3 :
              printf("\n\tMasukan Usia : ");
             scanf(" %d",&changeusia);
             change->usia=changeusia;
             break;
+
+        /* Mengubah status Hidup/Mati Node*/
 
         case 4 :
          printf("\n\tStatus (Hidup / Mati) : ");
@@ -416,6 +426,25 @@ void updateTree(nbTree *root){
         changestatus=0;
         }
         change->status=changestatus;
+        break;
+
+        /* Mengubah status Raja */
+
+        case 5 :
+            printf("\n\t Status Raja (Raja) : ");
+            scanf(" %s",namaking);
+           if(strcmp("Raja",namaking)==0 || strcmp("raja",namaking)==0){
+        changeking=1;
+        } else {
+        changeking=0;
+        }
+        if (changeking==1 && SearchKing((*root).root)->king==1){
+            SearchKing((*root).root)->king=0;
+        }else if (changeking==0 && SearchKing((*root).root)->king==1){
+            change_king((*root).root, (*root2).root);
+        }
+        change->status=changeking;
+
         break;
 
         default :

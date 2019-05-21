@@ -20,7 +20,7 @@ int main(){
             break;
         case 2 :
             // Update Data.
-            updateTree(&MyList);
+            updateTree(&MyList, &MyList2);
             system("pause");
             break;
         case 3 :

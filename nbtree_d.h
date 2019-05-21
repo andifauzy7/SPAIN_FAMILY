@@ -60,7 +60,7 @@ void change_king(nbAddr treesatu, nbAddr treedua);
 void change_king2(nbAddr test);
 
 /* Modul untuk Update Nilai dari Node */
-void updateTree(nbTree *root);
+void updateTree(nbTree *root, nbTree *root2);
 
 /* Seperangkat Modul File */
 void save_tree(nbAddr root);
