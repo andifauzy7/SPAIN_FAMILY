@@ -362,25 +362,25 @@ void updateTree(nbTree *root){
 
         switch(pil){
         case 1 :
-            printf("\nMasukan Nama Baru : ");
+            printf("\n\tMasukan Nama Baru : ");
             scanf(" %[^\n]", changenama);
             strcpy(change->nama,changenama);
             break;
 
         case 2 :
-            printf("\nMasukan Jenis Kelamin (L/W) : ");
+            printf("\n\tMasukan Jenis Kelamin (L/W) : ");
             scanf(" %c",&changej_kel);
             change->jeniskelamin=changej_kel;
             break;
 
         case 3 :
-             printf("  \tMasukan Usia : ");
+             printf("\n\tMasukan Usia : ");
             scanf(" %d",&changeusia);
             change->usia=changeusia;
             break;
 
         case 4 :
-         printf("  \tStatus (Hidup / Mati) : ");
+         printf("\n\tStatus (Hidup / Mati) : ");
          scanf(" %s",changelive);
            if(strcmp("hidup",changelive)==0 || strcmp("Hidup",changelive)==0){
         changestatus=1;
@@ -391,7 +391,7 @@ void updateTree(nbTree *root){
         break;
 
         default :
-            printf("\tInput Salah, Ulangi.\n\n\t");
+            printf("\n\tInput Salah, Ulangi.\n\n\t");
             system("pause");
             system("cls");
             goto lagi;
@@ -400,7 +400,7 @@ void updateTree(nbTree *root){
 
     }else
         {
-            printf("\tNama Tidak Ada, Ulangi.\n\n\t");
+            printf("\n\tNama Tidak Ada, Ulangi.\n\n\t");
             system("pause");
             system("cls");
             goto lagi;
