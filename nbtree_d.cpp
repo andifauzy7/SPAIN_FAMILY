@@ -263,6 +263,7 @@ void delete_node(nbTree *pTree, nbTree *pTree2, nbType value){
 	    //Jika yang dihapus adalah KING. Mencari Raja Baru
 	    if(pdel->king==1){
             change_king((*pTree).root,(*pTree2).root);
+            pdel->king=0;
 	    }
 		if(pdel->fs != NULL){
 		    // Jika yang dihapus memiliki son. Menandai First-an dari node tersebut.
@@ -340,12 +341,14 @@ void change_king(nbAddr treesatu, nbAddr treedua){
     nbAddr gerak,tertua,tertua_free;
     tertua=gerak=tertua_free=NULL;
     gerak=treedua->fs;
-    while(gerak->nb!=NULL){
+    while(gerak->nama!=NULL){
         if(gerak->usia>=20 && gerak->jeniskelamin=='L'){
             tertua=gerak;
         }
         if(gerak->usia>=20){
-            tertua_free=gerak;
+            if(tertua_free==NULL){
+                tertua_free=gerak;
+            }
         }
         gerak=gerak->nb;
     }
