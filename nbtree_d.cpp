@@ -96,18 +96,15 @@ nbTree create_tree2(nbTree *Troot, nbAddr temp){
 	boolean arah=false,test=false;
 
 	Insertnode(&pCur, nbSearch(pCur.root,0),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
-	//printf("%s, ",temp->nama);
 	do{
 		if(temp->fs!=NULL && arah==0){
             temp=temp->fs;
-            //printf("%s, ",temp->nama);
 			Insertnode(&pCur, nbSearch(pCur.root,temp->parent->nama),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
 			}
 		else{
 			arah=0;
 			if (temp->nb!= NULL){
                 temp=temp->nb;
-                //printf("%s, ",temp->nama);
                 Insertnode(&pCur, nbSearch(pCur.root,temp->parent->nama),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
 			}
 			else if(strcmp(temp->parent->nama,pCur.root->nama)!=0){
@@ -342,10 +339,10 @@ void change_king(nbAddr treesatu, nbAddr treedua){
     tertua=gerak=tertua_free=NULL;
     gerak=treedua->fs;
     while(gerak->nama!=NULL){
-        if(gerak->usia>=20 && gerak->jeniskelamin=='L'){
+        if(gerak->usia>=20 && gerak->jeniskelamin=='L' && gerak->status==1){
             tertua=gerak;
         }
-        if(gerak->usia>=20){
+        if(gerak->usia>=20 && gerak->status==1){
             if(tertua_free==NULL){
                 tertua_free=gerak;
             }
@@ -377,7 +374,6 @@ void updateTree(nbTree *root, nbTree *root2){
         memberlist=(*root);
         nbPrint(memberlist.root, "");
         printf("\n\tNama Lengkap          : "); scanf(" %[^\n]",srcnama);
-        //nbSearch(memberlist.root, srcnama);
         change=nbSearch(memberlist.root, srcnama);
         if (strcmp(change->nama, srcnama)==0)
             {
@@ -441,11 +437,10 @@ void updateTree(nbTree *root, nbTree *root2){
         }
         if (changeking==1 && SearchKing((*root).root)->king!=NULL){
             SearchKing((*root).root)->king=0;
-        }else if (changeking==0 && SearchKing((*root).root)->king==1){
+        }else if (changeking==0 && strcmp(SearchKing((*root).root)->nama,change->nama)==0){
             change_king((*root).root, (*root2).root);
         }
         change->king=changeking;
-
         break;
 
         default :
@@ -601,7 +596,11 @@ void nbPrint(nbAddr node, char tab[]){
 	strcpy(tempTab, tab);
 	strcat(tempTab, "-");
 	if (node!=NULL){
-		printf("\t%s%s\n",tab,node->nama);
+            if(node->king==1){
+                printf("\t%s%s -- %d -- %c -- %d (RAJA)\n",tab,node->nama, node->usia, node->jeniskelamin, node->status);
+            } else {
+                printf("\t%s%s -- %d -- %c -- %d\n",tab,node->nama, node->usia, node->jeniskelamin, node->status);
+            }
 		nbPrint(node->fs,tempTab);
 		nbPrint(node->nb,tab);
 	}
