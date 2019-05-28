@@ -94,8 +94,10 @@ nbTree create_tree2(nbTree *Troot, nbAddr temp){
     nbTree pCur;
     nbCreate(&pCur);
 	boolean arah=false,test=false;
+    nbType namaroot;
 
 	Insertnode(&pCur, nbSearch(pCur.root,0),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
+    //printf("%d..",temp->fs);
 	do{
 		if(temp->fs!=NULL && arah==0){
             temp=temp->fs;
@@ -103,11 +105,11 @@ nbTree create_tree2(nbTree *Troot, nbAddr temp){
 			}
 		else{
 			arah=0;
+
 			if (temp->nb!= NULL){
                 temp=temp->nb;
                 Insertnode(&pCur, nbSearch(pCur.root,temp->parent->nama),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
-			}
-			else if(strcmp(temp->parent->nama,pCur.root->nama)!=0){
+			} else if(strcmp(temp->parent->nama,pCur.root->nama)!=0){
 				temp=temp->parent;
 				arah=1;
 			} else if(strcmp(temp->parent->nama,pCur.root->nama)==0){

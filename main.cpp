@@ -6,10 +6,10 @@ int main(){
 
     nbCreate(&MyList);
     nbCreate(&MyList2);
-    MyList=open_filetree();         // Membuka File FILE_TREE.DAT dengan kembalian berupa pointer head TREE(1).
-    MyList2=second_tree(&MyList);   // Mengolah TREE(1), Melakukan Cek siapa raja & membuat TREE(2) Baru untuk Warisan.
+    //MyList=open_filetree();         // Membuka File FILE_TREE.DAT dengan kembalian berupa pointer head TREE(1).
+    //MyList2=second_tree(&MyList);   // Mengolah TREE(1), Melakukan Cek siapa raja & membuat TREE(2) Baru untuk Warisan.
 
-    /*
+
     Insertnode(&MyList, nbSearch(MyList.root,0), "Alfonso 12", 'L', 162, 0, 0);
     Insertnode(&MyList, nbSearch(MyList.root,"Alfonso 12"),"Maria de las Mercedes", 'W', 139, 0, 0);
     Insertnode(&MyList, nbSearch(MyList.root,"Maria de las Mercedes"),"Infante Alfonso", 'L', 118, 0, 0);
@@ -37,7 +37,7 @@ int main(){
     Insertnode(&MyList, nbSearch(MyList.root,"Infante Juan"),"Infanta Margarita", 'W', 80, 1, 0);
     Insertnode(&MyList, nbSearch(MyList.root,"Infanta Margarita"),"Alfonso Zurita", 'L', 46, 1, 0);
     Insertnode(&MyList, nbSearch(MyList.root,"Infanta Margarita"),"Maria Zurita", 'W', 43, 1, 0);
-    */
+
 
     for(;;){
         switch(menu()){
@@ -49,12 +49,16 @@ int main(){
             break;
         case 2 :
             // Update Data.
-            updateTree(&MyList, &MyList2);
-            if(SearchKing(MyList.root)->status==0){
-                SearchKing(MyList.root)->king=0;
-                change_king(MyList.root,MyList2.root);
+            if(MyList.root==0){
+                printf("\n\tTREE Kosong.");
+            } else {
+                updateTree(&MyList, &MyList2);
+                if(SearchKing(MyList.root)->status==0){
+                    SearchKing(MyList.root)->king=0;
+                    change_king(MyList.root,MyList2.root);
+                    save_tree(MyList.root);
+                }
             }
-            save_tree(MyList.root);
             break;
         case 3 :
             // Delete Node (Delete pada Silsilah Tahta, Status diubah menjadi Meninggal)
