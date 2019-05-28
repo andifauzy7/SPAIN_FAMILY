@@ -97,7 +97,9 @@ nbTree create_tree2(nbTree *Troot, nbAddr temp){
     nbType namaroot;
 
 	Insertnode(&pCur, nbSearch(pCur.root,0),temp->nama,temp->jeniskelamin,temp->usia,temp->status,temp->king);
-    //printf("%d..",temp->fs);
+    if(temp->fs==NULL){
+        return pCur;
+    }
 	do{
 		if(temp->fs!=NULL && arah==0){
             temp=temp->fs;
@@ -126,6 +128,7 @@ nbTree second_tree(nbTree *Troot){
     boolean kiri=false, kanan=false;
     nbAddr alamat, cekhorizontal, ujunghead;
 
+    alamat=cekhorizontal=ujunghead=NULL;
     cekhorizontal=alamat=SearchKing((*Troot).root);
     if(alamat->nb!=NULL){
         kanan=true;
@@ -154,10 +157,12 @@ nbTree second_tree(nbTree *Troot){
             if(Head.root->fs==NULL){
                 //Jika Head tidak memiliki FS.
                 Head.root->fs=Head_two.root;
+                Head_two.root->parent=Head.root;
                 ujunghead=Head.root->fs;
             } else {
                 //Jika Head memiliki Son.
                 ujunghead->nb=Head_two.root;
+                Head_two.root->parent=ujunghead;
                 ujunghead=ujunghead->nb;
             }
         cekhorizontal=cekhorizontal->nb;
@@ -174,10 +179,12 @@ nbTree second_tree(nbTree *Troot){
             if(Head.root->fs==NULL){
                 //Jika Head tidak memiliki FS.
                 Head.root->fs=Head_two.root;
-                ujunghead=ujunghead->nb;
+                Head_two.root->parent=Head.root;
+                ujunghead=Head.root->fs;
             } else {
                 //Jika Head memiliki Son.
                 ujunghead->nb=Head_two.root;
+                Head_two.root->parent=ujunghead;
                 if(ujunghead->nb!=NULL){
                     ujunghead=ujunghead->nb;
                 }
