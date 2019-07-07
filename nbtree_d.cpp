@@ -262,85 +262,147 @@ void view_traversal(nbAddr root){
 }
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
-void delete_node(nbTree *pTree, nbTree *pTree2, nbType value){
-	nbAddr pdel, temp, sonbaru, ujungbrother;
-	if(pTree->root != NULL){
-	    pdel=nbSearch(pTree->root,value);
-	    //Jika yang dihapus adalah KING. Mencari Raja Baru
-	    if(pdel->king==1){
-            change_king((*pTree).root,(*pTree2).root);
-            pdel->king=0;
-	    }
-		if(pdel->fs != NULL){
-		    // Jika yang dihapus memiliki son. Menandai First-an dari node tersebut.
-            temp=pdel->fs;
-            if(pdel->parent==NULL){
-                pTree->root=temp;
-                temp->parent=NULL;
+nbAddr delete_node(nbAddr root, nbType value){
+    nbAddr temp;
+    if(root==NULL){
+        printf("\n\tTree belum dibuat!");
+    } else {
+        temp = nbSearch(root, value);
+        if(temp == NULL){
+            printf("\n\tNama Tidak Ditemukan!");
+        } else {
+            if(temp==root){
+                // Jika Root.
+                root = delete_root(root, temp);
+            }
+            else if(isLeaf(temp)){
+                // Jika Leaf atau Daun.
+                root = delete_leaf(root, temp);
             } else {
-            temp->parent=pdel->parent;
-            // Jika anak pertama sama dengan anak pertama dari kakek
-            if(temp->parent->fs==pdel){
-                pdel->parent->fs=temp;
+                // Jika batang.
+                root = delete_stem(root, temp);
             }
-            }
-            // Menyambungkan saudara yang lebih tua dari PDEL ke TEMP (Apabila Ada)
-            if(nbSearchbefore(pTree->root, pdel)!=NULL){
-                nbSearchbefore(pTree->root, pdel)->nb=temp;
-            }
-            // Menyimpan address brother temp, nanti akan dijadikan FS.
-            if(temp->nb!=NULL){
-                sonbaru=temp->nb;
-                if(temp->fs==NULL){
-                    temp->fs=sonbaru;
-                } else {
-                    ujungbrother=temp->fs;
-                    while(ujungbrother->nb!=NULL){
-                        ujungbrother=ujungbrother->nb;
-                    }
-                    ujungbrother->nb=sonbaru;
+        printf("\n\tDelete Berhasil!\n\t");
+        }
+        return root;
+    }
+
+}
+
+bool isLeaf(nbAddr root){
+    if(root->fs == NULL){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+nbAddr delete_root(nbAddr root, nbAddr value){
+    if(isLeaf(value)){
+        // Jika berupa Daun. (1 Node saja)
+        root=NULL;
+    } else {
+        // Jika bukan Daun.
+        nbAddr anaknya = value->fs;
+        anaknya->parent = NULL;
+        anaknya = upgrade_position(root,anaknya);
+        root = anaknya;
+    }
+    value = NULL;
+    free(value);
+    return root;
+}
+
+nbAddr delete_leaf(nbAddr root, nbAddr value){
+    if(nbSearchbefore(root, value)==0){
+        // Seorang Kakak.
+        if(value->nb!=NULL){
+            // Memiliki Adik.
+            nbAddr adiknya = value->nb;
+            value->parent->fs = adiknya;
+        } else {
+            // Anak Tunggal.
+            nbAddr ayahnya = value->parent;
+            ayahnya->fs = NULL;
+        }
+    } else {
+        // Memiliki Kakak.
+        if(value->nb!=NULL){
+            // Memiliki kakak dan Adik.
+            nbSearchbefore(root, value)->nb = value->nb;
+        } else {
+            // Anak terkecil.
+            nbSearchbefore(root, value)->nb = NULL;
+        }
+    }
+    value=NULL;
+    free(value);
+    return root;
+}
+
+nbAddr delete_stem(nbAddr root, nbAddr value){
+    nbAddr anaknya = value->fs;
+    anaknya->parent = value->parent;
+    // Jika seorang kakak.
+    if(nbSearchbefore(root, value)==0){
+        value->parent->fs = anaknya;
+        //anaknya->fs = anaknya->nb;
+        if(value->nb==NULL){
+            // Tidak memiliki adik.
+            anaknya = upgrade_position(root, anaknya);
+        } else {
+            // Memiliki seorang adik.
+            nbAddr adiknya = value->nb;
+            anaknya = upgrade_position(root, anaknya);
+            anaknya->nb = adiknya;
+        }
+    } else {
+        // Jika memiliki kakak.
+        nbAddr kakaknya = nbSearchbefore(root, value);
+        if(value->nb == NULL){
+            // Jika tidak memiliki adik.
+            anaknya = upgrade_position(root, anaknya);
+        } else {
+            // Jika Memiliki adik.
+            nbAddr adiknya = value->nb;
+            anaknya = upgrade_position(root, anaknya);
+            anaknya->nb = adiknya;
+        }
+        kakaknya->nb = anaknya;
+    }
+    value=NULL;
+    free(value);
+    return root;
+}
+
+nbAddr upgrade_position(nbAddr root, nbAddr value){
+    nbAddr anaknya = value;
+    if(anaknya->fs!=NULL && anaknya->nb!=NULL){
+        // Jika punya anak dan saudara.
+        nbAddr cucu = anaknya->fs;
+        while(cucu->nb!=NULL){
+            cucu = cucu->nb;
+        }
+        nbAddr saudara = anaknya->nb;
+        cucu->nb = saudara;
+        anaknya->nb=NULL;
+        while(saudara!=NULL){
+            saudara->parent = anaknya;
+            saudara = saudara->nb;
+        }
+    } else {
+        if(anaknya->fs==NULL){
+            // Jika punya saudara aja.
+            nbAddr saudara = anaknya->nb;
+            anaknya->nb = NULL;
+            anaknya->fs = saudara;
+                while(saudara!=NULL){
+                    saudara->parent = anaknya;
+                    saudara = saudara->nb;
                 }
-                temp->nb=NULL;
-                sonbaru->parent=temp;
-            }
-            // Menyambungkan saudara yang lebik muda dari PDEL ke TEMP (Apabila Ada)
-            if(pdel->nb!=NULL){
-                temp->nb=pdel->nb;
-                pdel->nb=NULL;
-            }
-            pdel->fs=NULL;
-            while(sonbaru->nb!=NULL){
-                sonbaru->parent=temp;
-                sonbaru=sonbaru->nb;
-            }
-		}
-		else if(pdel->fs==NULL){
-            // Menyimpan Parent dari Node yang akan dihapus.
-			temp=pdel->parent;
-			if(temp->fs==pdel){
-			    // Apabila yang didelete adalah anak pertama.
-			    // FS atau Anak pertama dari Node diubah ke NextBrother.
-				temp->fs=pdel->nb;
-			}
-			else{
-				temp=temp->fs;
-				// Memindahkan temp ke anak pertama dari suatu node.
-				while(temp->nb != NULL ){
-					if(temp->nb==pdel){
-                        // Memindahkan pointer ke anak sesudah sesudahnya.
-						temp->nb = temp->nb->nb;
-					}
-					else{
-						temp=temp->nb;
-					}
-				}
-			}
-		}
-		free(pdel);
-	}
-	else{
-		printf("Tree Kosong!");
-	}
+        }
+    }
+    return anaknya;
 }
 
 void change_king(nbAddr treesatu, nbAddr treedua){
@@ -365,10 +427,6 @@ void change_king(nbAddr treesatu, nbAddr treedua){
         tertua_free=tertua;
         nbSearch(treesatu,tertua_free->nama)->king=1;
     }
-}
-
-void change_king2(nbAddr test){
-    test->fs->king=1;
 }
 
 void updateTree(nbTree *root, nbTree *root2){
@@ -606,9 +664,9 @@ void nbPrint(nbAddr node, char tab[]){
 	strcat(tempTab, "-");
 	if (node!=NULL){
             if(node->king==1){
-                printf("\t%s%s -- %d -- %c -- %d (RAJA)\n",tab,node->nama, node->usia, node->jeniskelamin, node->status);
+                printf("\t%s%s (RAJA)\n",tab,node->nama);
             } else {
-                printf("\t%s%s -- %d -- %c -- %d\n",tab,node->nama, node->usia, node->jeniskelamin, node->status);
+                printf("\t%s%s\n",tab,node->nama);
             }
 		nbPrint(node->fs,tempTab);
 		nbPrint(node->nb,tab);

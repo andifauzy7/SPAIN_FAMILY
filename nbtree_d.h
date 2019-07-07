@@ -60,9 +60,13 @@ void view_traversal(nbAddr root);
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal
 By : Andi Fauzy D */
-void delete_node(nbTree *pTree, nbTree *pTree2, nbType value);
+bool isLeaf(nbAddr root);
+nbAddr delete_node(nbAddr root, nbType value);
+nbAddr delete_root(nbAddr root, nbAddr value);
+nbAddr delete_leaf(nbAddr root, nbAddr value);
+nbAddr delete_stem(nbAddr root, nbAddr value);
+nbAddr upgrade_position(nbAddr root, nbAddr value);
 void change_king(nbAddr treesatu, nbAddr treedua);
-void change_king2(nbAddr test);
 
 /* Modul untuk Update Nilai dari Node
 By : Fahmi Widianto */
