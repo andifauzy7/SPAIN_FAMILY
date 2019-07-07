@@ -262,7 +262,7 @@ void view_traversal(nbAddr root){
 }
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
-nbAddr delete_node(nbAddr root, nbType value){
+nbAddr delete_node(nbAddr root, nbAddr root_kedua, nbType value){
     nbAddr temp;
     if(root==NULL){
         printf("\n\tTree belum dibuat!");
@@ -271,6 +271,9 @@ nbAddr delete_node(nbAddr root, nbType value){
         if(temp == NULL){
             printf("\n\tNama Tidak Ditemukan!");
         } else {
+            if(temp->king == 1){
+                change_king(root, root_kedua);
+            }
             if(temp==root){
                 // Jika Root.
                 root = delete_root(root, temp);

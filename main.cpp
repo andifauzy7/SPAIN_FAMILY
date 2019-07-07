@@ -9,8 +9,6 @@ int main(){
     MyList=open_filetree();         // Membuka File FILE_TREE.DAT dengan kembalian berupa pointer head TREE(1).
     MyList2=second_tree(&MyList);   // Mengolah TREE(1), Melakukan Cek siapa raja & membuat TREE(2) Baru untuk Warisan.
 
-
-
     for(;;){
         switch(menu()){
         case 1 :
@@ -37,7 +35,7 @@ int main(){
             nbPrint(MyList.root,"");
             printf("\n\tNode yang ingin didelete : "); scanf(" %[^\n]",nama);
             if(nbSearch(MyList.root,nama)!=NULL){
-                MyList.root = delete_node(MyList.root, nama);
+                MyList.root = delete_node(MyList.root, MyList2.root, nama);
             } else {
                 printf("\n\tInputan Salah!\n\t");
             }

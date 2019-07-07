@@ -61,7 +61,7 @@ void view_traversal(nbAddr root);
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal
 By : Andi Fauzy D */
 bool isLeaf(nbAddr root);
-nbAddr delete_node(nbAddr root, nbType value);
+nbAddr delete_node(nbAddr root, nbAddr root_kedua, nbType value);
 nbAddr delete_root(nbAddr root, nbAddr value);
 nbAddr delete_leaf(nbAddr root, nbAddr value);
 nbAddr delete_stem(nbAddr root, nbAddr value);
